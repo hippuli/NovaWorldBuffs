@@ -868,16 +868,26 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", NWB.addClickLinks);
 ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", NWB.addClickLinks);
 ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_WARNING", NWB.addClickLinks);
 --Hook the chat link click func.
-hooksecurefunc("ChatFrame_OnHyperlinkShow", function(...)
-	local chatFrame, link, text, button = ...;
-    if (link == "NWBCustomLink:buffs") then
-		NWB:openBuffListFrame();
-	end
-	--if (link == "NWBCustomLink:timers" and NWB.isLayered) then
-	if (link == "NWBCustomLink:timers") then
-		NWB:openLayerFrame();
-	end
-end)
+if (ChatFrame_OnHyperlinkShow) then
+	hooksecurefunc("ChatFrame_OnHyperlinkShow", function(...)
+		local chatFrame, link, text, button = ...;
+	    if (link == "NWBCustomLink:buffs") then
+			NWB:openBuffListFrame();
+		end
+		if (link == "NWBCustomLink:timers") then
+			NWB:openLayerFrame();
+		end
+	end)
+elseif (SetItemRef) then
+	hooksecurefunc("SetItemRef", function(link, text, button, chatFrame, ...)
+	    if (link == "NWBCustomLink:buffs") then
+			NWB:openBuffListFrame();
+		end
+		if (link == "NWBCustomLink:timers") then
+			NWB:openLayerFrame();
+		end
+	end)
+end
 
 --Insert our custom link type into blizzards SetHyperlink() func.
 local OriginalSetHyperlink = ItemRefTooltip.SetHyperlink
@@ -4324,7 +4334,7 @@ function NWB:updateMinimapButton(tooltip, frame)
 				ageText = " |cFF989898(" .. L["Active"] .. " " .. NWB:getTimeString(GetServerTime() - v.spawn, true, "short", nil, nil, true) .. ")|r ";
 			end
 			tooltip:AddLine("|cff00ff00[" .. L["Layer"] .. " " .. count .. "]|r  |cFF989898(" .. L["zone"] .. " " .. k .. ") " .. ageText .. wintergraspTexture .. buffTextures .. "|r");
-			if (not noWorldBuffTimers and NWB.expansionNum < 2) then
+			if (not noWorldBuffTimers and (NWB.expansionNum < 2 or NWB.isTBCPrepatch)) then
 				if ((NWB.isClassic or (not NWB.db.global.hideMinimapBuffTimers
 						and not (NWB.db.global.disableBuffTimersMaxBuffLevel and UnitLevel("player") > 64)))
 						and not (NWB.isSOD and UnitLevel("player") < NWB.db.global.disableOnlyNefRendBelowMaxLevelNum)) then
@@ -4410,7 +4420,7 @@ function NWB:updateMinimapButton(tooltip, frame)
 			end
 			msg = "";
 			local texture = "";
-			if (NWB.isTBC or NWB.isWrathPrepatch) then
+			if ((NWB.isTBC or NWB.isWrathPrepatch) and not NWB.isTBCPrepatch) then
 				if (v.terokTowers) then
 					local endTime = NWB:getTerokEndTime(v.terokTowers, v.terokTowersTime);
 					local secondsLeft = endTime - GetServerTime();
@@ -4679,7 +4689,7 @@ function NWB:updateMinimapButton(tooltip, frame)
 				tooltip:AddLine(NWB.chatColor .. msg);
 			end
 		end
-		if (NWB.isTBC or NWB.isWrathPrepatch) then
+		if ((NWB.isTBC or NWB.isWrathPrepatch) and not NWB.isTBCPrepatch) then
 			local msg = "";
 			local texture = "";
 			if (NWB.data.terokTowers) then
@@ -4799,6 +4809,7 @@ function NWB:updateMinimapButton(tooltip, frame)
 		--msg = "";
 	end
 	if (NWB.isTBC or NWB.isWrath) then
+		local completedQuests = {};
 		if (NWB.isWrath) then
 			tooltip:AddLine(" ");
 			if (not tooltip.NWBSeparator4) then
@@ -4888,66 +4899,67 @@ function NWB:updateMinimapButton(tooltip, frame)
 		end
 		tooltip.NWBSeparator:SetPoint("TOP", _G[tooltip:GetName() .. "TextLeft" .. tooltip:NumLines()], "CENTER");
 		tooltip.NWBSeparator:Show();
-		if (NWB.data.tbcDD and NWB.data.tbcDDT and GetServerTime() - NWB.data.tbcDDT < 86400) then
-			local questData = NWB:getDungeonDailyData(NWB.data.tbcDD);
-			if (questData) then
-				local name = questData.nameLocale or questData.name;
-				tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r "
-						.. name .. " (" .. questData.abbrev .. ")");
+		if (not NWB.isTBCPrepatch) then
+			if (NWB.data.tbcDD and NWB.data.tbcDDT and GetServerTime() - NWB.data.tbcDDT < 86400) then
+				local questData = NWB:getDungeonDailyData(NWB.data.tbcDD);
+				if (questData) then
+					local name = questData.nameLocale or questData.name;
+					tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r "
+							.. name .. " (" .. questData.abbrev .. ")");
+				end
+			elseif (NWB.isTBC) then
+				--Disabled this in wrath phase 4, there are no different dung dailies anyway just the same type every day.
+				tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r Unknown.");
 			end
-		elseif (NWB.isTBC) then
-			--Disabled this in wrath phase 4, there are no different dung dailies anyway just the same type every day.
-			tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r Unknown.");
-		end
-		if (NWB.data.tbcHD and NWB.data.tbcHDT and GetServerTime() - NWB.data.tbcHDT < 86400) then
-			local questData = NWB:getHeroicDailyData(NWB.data.tbcHD);
-			if (questData) then
-				local name = questData.nameLocale or questData.name;
-				tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r "
-						.. name .. " (" .. questData.abbrev .. ")");
+			if (NWB.data.tbcHD and NWB.data.tbcHDT and GetServerTime() - NWB.data.tbcHDT < 86400) then
+				local questData = NWB:getHeroicDailyData(NWB.data.tbcHD);
+				if (questData) then
+					local name = questData.nameLocale or questData.name;
+					tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r "
+							.. name .. " (" .. questData.abbrev .. ")");
+				end
+			elseif (NWB.isTBC) then
+				--Disabled this in wrath phase 4, there are no different dung dailies anyway just the same type every day.
+				tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r Unknown.");
 			end
-		elseif (NWB.isTBC) then
-			--Disabled this in wrath phase 4, there are no different dung dailies anyway just the same type every day.
-			tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r Unknown.");
-		end
-		local texture = "|TInterface\\TargetingFrame\\UI-PVP-Horde:12:12:-1:0:64:64:7:36:1:36|t";
-		if (NWB.faction == "Alliance") then
-			texture = "|TInterface\\TargetingFrame\\UI-PVP-Alliance:12:12:0:0:64:64:7:36:1:36|t";
-		end
-		if (NWB.data.tbcPD and NWB.data.tbcPDT and GetServerTime() - NWB.data.tbcPDT < 86400) then
-			local questData = NWB:getPvpDailyData(NWB.data.tbcPD);
-			if (questData) then
-				local name = questData.nameLocale or questData.name;
-				tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r" .. texture .. "|cFF9CD6DE)|r "
-						.. name);
+			local texture = "|TInterface\\TargetingFrame\\UI-PVP-Horde:12:12:-1:0:64:64:7:36:1:36|t";
+			if (NWB.faction == "Alliance") then
+				texture = "|TInterface\\TargetingFrame\\UI-PVP-Alliance:12:12:0:0:64:64:7:36:1:36|t";
 			end
-		else
-			tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r" .. texture .. "|cFF9CD6DE)|r Unknown.");
-		end
-		local completedQuests = {};
-		if (NWB.faction == "Horde") then
-			if (C_QuestLog.IsQuestFlaggedCompleted(10110)) then
-				table.insert(completedQuests, "|cFF9CD6DE" .. L["Hellfire Towers"] .. ": |cFF00C800Completed|r" .. ".");
+			if (NWB.data.tbcPD and NWB.data.tbcPDT and GetServerTime() - NWB.data.tbcPDT < 86400) then
+				local questData = NWB:getPvpDailyData(NWB.data.tbcPD);
+				if (questData) then
+					local name = questData.nameLocale or questData.name;
+					tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r" .. texture .. "|cFF9CD6DE)|r "
+							.. name);
+				end
+			else
+				tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r" .. texture .. "|cFF9CD6DE)|r Unknown.");
 			end
-			if (C_QuestLog.IsQuestFlaggedCompleted(11506)) then
-				table.insert(completedQuests, "|cFF9CD6DE" .. L["Terokkar Towers"] .. ": |cFF00C800Completed|r" .. ".");
-			end
-			if (C_QuestLog.IsQuestFlaggedCompleted(11503)) then
-				table.insert(completedQuests, "|cFF9CD6DE" .. L["Nagrand Halaa"] .. ":  |cFF00C800Completed|r" .. ".");
-			end
-			--Wintergrasp.
-			--if (C_QuestLog.IsQuestFlaggedCompleted(13183)) then
-			--	table.insert(completedQuests, "|cFF9CD6DE" .. L["Victory in Wintergrasp"] .. ":  |cFF00C800Completed|r" .. ".");
-			--end
-		else
-			if (C_QuestLog.IsQuestFlaggedCompleted(10106)) then
-				table.insert(completedQuests, "|cFF9CD6DE" .. L["Hellfire Towers"] .. ": |cFF00C800Completed|r" .. ".");
-			end
-			if (C_QuestLog.IsQuestFlaggedCompleted(11505)) then
-				table.insert(completedQuests, "|cFF9CD6DE" .. L["Terokkar Towers"] .. ": |cFF00C800Completed|r" .. ".");
-			end
-			if (C_QuestLog.IsQuestFlaggedCompleted(11502)) then
-				table.insert(completedQuests, "|cFF9CD6DE" .. L["Nagrand Halaa"] .. ":  |cFF00C800Completed|r" .. ".");
+			if (NWB.faction == "Horde") then
+				if (C_QuestLog.IsQuestFlaggedCompleted(10110)) then
+					table.insert(completedQuests, "|cFF9CD6DE" .. L["Hellfire Towers"] .. ": |cFF00C800Completed|r" .. ".");
+				end
+				if (C_QuestLog.IsQuestFlaggedCompleted(11506)) then
+					table.insert(completedQuests, "|cFF9CD6DE" .. L["Terokkar Towers"] .. ": |cFF00C800Completed|r" .. ".");
+				end
+				if (C_QuestLog.IsQuestFlaggedCompleted(11503)) then
+					table.insert(completedQuests, "|cFF9CD6DE" .. L["Nagrand Halaa"] .. ":  |cFF00C800Completed|r" .. ".");
+				end
+				--Wintergrasp.
+				--if (C_QuestLog.IsQuestFlaggedCompleted(13183)) then
+				--	table.insert(completedQuests, "|cFF9CD6DE" .. L["Victory in Wintergrasp"] .. ":  |cFF00C800Completed|r" .. ".");
+				--end
+			else
+				if (C_QuestLog.IsQuestFlaggedCompleted(10106)) then
+					table.insert(completedQuests, "|cFF9CD6DE" .. L["Hellfire Towers"] .. ": |cFF00C800Completed|r" .. ".");
+				end
+				if (C_QuestLog.IsQuestFlaggedCompleted(11505)) then
+					table.insert(completedQuests, "|cFF9CD6DE" .. L["Terokkar Towers"] .. ": |cFF00C800Completed|r" .. ".");
+				end
+				if (C_QuestLog.IsQuestFlaggedCompleted(11502)) then
+					table.insert(completedQuests, "|cFF9CD6DE" .. L["Nagrand Halaa"] .. ":  |cFF00C800Completed|r" .. ".");
+				end
 			end
 		end
 		if (next(completedQuests)) then
@@ -12587,7 +12599,7 @@ end
 --Backup timer set from the yell incase the NPC wasn't found.
 function NWB:heraldYell()
 	if ((GetServerTime() - NWB.lastHeraldAlert) > 40) then
-		local timerMsg = "Crossroads Rend";
+		local timerMsg = L["heraldFoundTimerMsg"];
 		local time = 6;
 		if (_G["DBM"] and _G["DBM"].CreatePizzaTimer and NWB.isClassic) then
 			_G["DBM"]:CreatePizzaTimer(time, timerMsg);
