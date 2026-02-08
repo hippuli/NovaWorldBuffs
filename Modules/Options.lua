@@ -2036,10 +2036,10 @@ NWB.optionDefaults = {
 		convertSettings = true,
 		wipeSingleLayer = true,
 		guildL = true,
-		terokkarChat10 = true,
-		terokkarMiddle10 = true,
+		terokkarChat10 = false,
+		terokkarMiddle10 = false,
 		wintergraspChat10 = true,
-		wintergraspMiddle10 = true,
+		wintergraspMiddle10 = false,
 		wipeTerokkarData4 = true,
 		showShatWorldmapMarkers = true,
 		showShatWorldmapMarkersTerok = true,
@@ -2336,13 +2336,13 @@ end
 
 function NWB:checkNewVersion()
 	--NWB.db.global.versions = {};
-	local newVersionNotes = 3.28;
+	local newVersionNotes = 3.29;
 	if (NWB.version and NWB.version == newVersionNotes) then
 		if (not NWB.db.global.versions[NWB.version]) then
 			if (NWB.isTBC) then
 				--if (NWB:GetCurrentRegion() == 1 and not string.match(NWB.realm, "(AU)")) then
 					local notes = {
-						"Increased layer tracking cap to 20 but now it only tracks TBC zones just until the layer count goes down again then I'll add the Azeroth zones back, this is to keep data sharing at a reasonable size. Only the TBC zones really matter atm anyway.",
+						"Changed the Terokkat Tower timer msgs off by default for chat and middle of the screen, there's far more layers than the last TBC and its a bit spammy. You can turn them on in options if you want to see those msgs.",
 					};
 					loadNewVersionFrame(NWB.version, notes, "Nova World Buffs", "Interface\\Icons\\inv_misc_head_dragon_01", -50, 350);
 				--end

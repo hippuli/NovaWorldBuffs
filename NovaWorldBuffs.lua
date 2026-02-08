@@ -2016,13 +2016,13 @@ function NWB:printDmfPercent()
 end
 
 local playedWindows = {};
-function NWB:isTimePlayedMsgRegistered()
+--[[function NWB:isTimePlayedMsgRegistered()
 	for i = 1, NUM_CHAT_WINDOWS do
 		if (_G['ChatFrame' .. i] and _G['ChatFrame' .. i]:IsEventRegistered("TIME_PLAYED_MSG")) then
 			return true;
 		end
 	end
-end
+end]]
 
 function NWB:registerTimePlayedMsg()
 	for k, v in pairs(playedWindows) do
@@ -2050,7 +2050,7 @@ function NWB:unregisterTimePlayedMsg()
 end
 
 --Track our current buff durations across all chars.
-local gotPlayedData, reregisterPlayedEvent;
+local gotPlayedData;
 local chronoRestoreUsed = 0;
 function NWB:trackNewBuff(spellName, type, npcID)
 	if (not NWB.data.myChars[UnitName("player")].buffs[spellName]) then
@@ -2089,10 +2089,7 @@ function NWB:trackNewBuff(spellName, type, npcID)
 		NWB.currentTrackBuff = NWB.data.myChars[UnitName("player")].buffs[spellName];
 		--Hide the msg from chat.
 		if (not gotPlayedData) then
-			if (NWB:isTimePlayedMsgRegistered()) then
-				reregisterPlayedEvent = true;
-				NWB:unregisterTimePlayedMsg();
-			end
+			NWB:unregisterTimePlayedMsg();
 			gotPlayedData = true;
 			RequestTimePlayed();
 		end
@@ -2526,9 +2523,7 @@ function NWB:timePlayedMsg(...)
 	end
 	--Reregister the chat frame event after we're done.
 	C_Timer.After(2, function()
-		if (reregisterPlayedEvent) then
-			NWB:registerTimePlayedMsg();
-		end
+		NWB:registerTimePlayedMsg();
 	end)
 	NWB:syncBuffsWithCurrentDuration();
 	NWB:recalcBuffTimers();
@@ -2938,10 +2933,7 @@ f:SetScript("OnEvent", function(self, event, ...)
 				--Only request played data at logon if we didn't get it already for some reason.
 				if (not gotPlayedData) then
 					gotPlayedData = true;
-					if (NWB:isTimePlayedMsgRegistered()) then
-						reregisterPlayedEvent = true;
-						NWB:unregisterTimePlayedMsg();
-					end
+					NWB:unregisterTimePlayedMsg();
 					RequestTimePlayed();
 				end
 			end)
@@ -10258,6 +10250,25 @@ function NWB:setCurrentLayerText(unit)
 			else
 				NWB:createNewLayer(tonumber(zoneID), GUID, true);
 			end
+			if (spawnUID) then
+				--Wondered why sometimes a layer would get shared that didn't have a spawn time.
+				--It was becaus we were only recording spawn time when targeting a npc after a layer was already created, so copy pasted it here to add it on creation too.
+				local v = NWB.data.layers[tonumber(zoneID)];
+				if (v) then
+					local spawnEpoch = GetServerTime() - (GetServerTime() % 2^23);
+					local spawnEpochOffset = bit.band(tonumber(strsub(spawnUID, 5), 16), 0x7fffff);
+					local spawnIndex = bit.rshift(bit.band(tonumber(strsub(spawnUID, 1, 5), 16), 0xffff8), 3);
+					local spawnTime = spawnEpoch + spawnEpochOffset;
+					if (spawnTime > GetServerTime()) then
+						-- This only occurs if the epoch has rolled over since a unit has spawned.
+						spawnTime = spawnTime - ((2^23) - 1);
+					end
+					--print(spawnUID, spawnTime, v.spawn)
+					if (spawnTime ~= 0 and (not v.spawn or spawnTime < v.spawn or v.spawn == 0)) then
+						v.spawn = spawnTime;
+					end
+				end
+			end
 		end
 		--This can only be set while in a capital and is used for mapping zones with timers like terokkar.
 		NWB.lastKnownLayerMapID_Mapping = tonumber(zoneID);
@@ -10966,6 +10977,7 @@ NWB:updateMinimapLayerFramePos();
 MinimapLayerFrame:SetFrameStrata("HIGH");
 MinimapLayerFrame:SetFrameLevel(9);
 MinimapLayerFrame:SetMovable(true);
+MinimapLayerFrame:SetClampedToScreen(true);
 MinimapLayerFrame.fs = MinimapLayerFrame:CreateFontString("MinimapLayerFrameFS", "ARTWORK");
 MinimapLayerFrame.fs:SetPoint("CENTER", 0, 0);
 MinimapLayerFrame.fs:SetFont(NWB.regionFont, 10);
@@ -10975,6 +10987,7 @@ MinimapLayerFrame:SetHeight(17);
 MinimapLayerFrame.width = MinimapLayerFrame:GetWidth();
 MinimapLayerFrame:Hide();
 MinimapLayerFrame.tooltip = CreateFrame("Frame", "NWBVersionDragTooltip", MinimapLayerFrame, "TooltipBorderedFrameTemplate");
+MinimapLayerFrame.tooltip:SetClampedToScreen(true);
 MinimapLayerFrame.tooltip:SetPoint("BOTTOM", MinimapLayerFrame, "TOP", 0, 1);
 MinimapLayerFrame.tooltip:SetFrameStrata("TOOLTIP");
 MinimapLayerFrame.tooltip:SetFrameLevel(9);
