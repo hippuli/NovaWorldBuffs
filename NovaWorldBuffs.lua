@@ -7823,9 +7823,17 @@ function NWB:getDmfData()
 				startMonth = startMonth + 1;
 			end
 			if (NWB.isTBC) then
-				if (startMonth == 2 or startMonth == 5 or startMonth == 8 or startMonth == 11) then
+				--[[if (startMonth == 2 or startMonth == 5 or startMonth == 8 or startMonth == 11) then
 					zone = "Outlands";
 				elseif (startMonth == 1 or startMonth == 4 or startMonth == 7 or startMonth == 10) then
+					zone = "Mulgore";
+				else
+					zone = "Elwynn Forest";
+				end]]
+				--It's different in anni.
+				if (startMonth == 4 or startMonth == 7 or startMonth == 10 or startMonth == 1) then
+					zone = "Outlands";
+				elseif (startMonth == 3 or startMonth == 6 or startMonth == 9 or startMonth == 12) then
 					zone = "Mulgore";
 				else
 					zone = "Elwynn Forest";
