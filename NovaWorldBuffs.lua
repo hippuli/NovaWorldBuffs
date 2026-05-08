@@ -7834,9 +7834,9 @@ function NWB:getDmfData()
 				if (startMonth == 4 or startMonth == 7 or startMonth == 10 or startMonth == 1) then
 					zone = "Outlands";
 				elseif (startMonth == 3 or startMonth == 6 or startMonth == 9 or startMonth == 12) then
-					zone = "Mulgore";
-				else
 					zone = "Elwynn Forest";
+				else
+					zone = "Mulgore";
 				end
 			else
 				if (startMonth % 2 == 0) then
