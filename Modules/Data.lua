@@ -39,6 +39,8 @@ local GetRaidRosterInfo = GetRaidRosterInfo;
 local strmatch = strmatch;
 local connectedRealms = {};
 local layerExpireTime = 10800;
+local isTBC = NWB.isTBC;
+local isWrath = NWB.isWrath;
 
 function NWB:setLayerExpireTimeData()
 	layerExpireTime = NWB.layerExpireTime;
@@ -1856,6 +1858,7 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 			end
 		end
 	end
+	local dailyDataUpdated;
 	for k, v in pairs(data) do
 		--Not sure how it's possible for k to be anything but a string here but a rare error was reported.
 		--bad argument #1 to 'match' (string expected, got table)
@@ -1980,6 +1983,9 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 									if (data.tbcHD and tonumber(data.tbcHD) and data.tbcHD > 0) then
 										--Old version bug it can come as 0.
 										if (tonumber(data.tbcHD) and data.tbcHD > 0 and NWB:getHeroicDailyData(data.tbcHD)) then
+											if (data.tbcHD ~= NWB.data.tbcHD and not NWB.data.tbcHDT or data.tbcHDT > NWB.data.tbcHDT) then
+												dailyDataUpdated = true;
+											end
 											NWB.data.tbcHD = data.tbcHD;
 											NWB.data.tbcHDT = data.tbcHDT;
 										end
@@ -1989,6 +1995,9 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 								if (k == "tbcDDT") then
 									if (data.tbcDD and tonumber(data.tbcDD) and data.tbcDD > 0) then
 										if (tonumber(data.tbcDD) and data.tbcDD > 0 and NWB:getDungeonDailyData(data.tbcDD)) then
+											if (data.tbcDD ~= NWB.data.tbcDD and not NWB.data.tbcDDT or data.tbcDDT > NWB.data.tbcDDT) then
+												dailyDataUpdated = true;
+											end
 											NWB.data.tbcDD = data.tbcDD;
 											NWB.data.tbcDDT = data.tbcDDT;
 										end
@@ -1998,6 +2007,9 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 								if (k == "tbcPDT") then
 									if (data.tbcPD and tonumber(data.tbcPD) and data.tbcPD > 0) then
 										if (tonumber(data.tbcPD) and data.tbcPD > 0 and NWB:getPvpDailyData(data.tbcPD)) then
+											if (data.tbcPD ~= NWB.data.tbcPD and not NWB.data.tbcPDT or data.tbcPDT > NWB.data.tbcPDT) then
+												dailyDataUpdated = true;
+											end
 											NWB.data.tbcPD = data.tbcPD;
 											NWB.data.tbcPDT = data.tbcPDT;
 										end
@@ -2046,6 +2058,9 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 				end
 			end
 		end
+	end
+	if (dailyDataUpdated) then
+		NWB:updateDailyCache();
 	end
 	if (hasNewData or hasNewTerok) then
 		NWB:timerCleanup();
@@ -5281,6 +5296,60 @@ function NWB:getPvpDailyData(id)
 	for k, v in pairs(NWB.pvpDailies) do
 		if (v.id == id) then
 			return v;
+		end
+	end
+end
+
+function NWB:updateDailyCache()
+	if (isTBC or isWrath) then
+		if (NWB.data.tbcDD and NWB.data.tbcDDT and GetServerTime() - NWB.data.tbcDDT < 86400) then
+			local questData = NWB:getDungeonDailyData(NWB.data.tbcDD);
+			if (questData) then
+				NWB_DailyNormal = {};
+				--We want a copy not a reference to the table.
+				for k, v in pairs(questData) do
+					NWB_DailyNormal[k] = v;
+				end
+				NWB_DailyNormal.lastSeen = NWB.data.tbcDDT;
+				NWB_DailyNormal.questID = NWB.data.tbcDD;
+				NWB_DailyNormal.id = nil;		
+			else
+				NWB_DailyNormal = {};
+			end
+		else
+			NWB_DailyNormal = {};
+		end
+		if (NWB.data.tbcHD and NWB.data.tbcHDT and GetServerTime() - NWB.data.tbcHDT < 86400) then
+			local questData = NWB:getHeroicDailyData(NWB.data.tbcHD);
+			if (questData) then
+				NWB_DailyHeroic = {};
+				for k, v in pairs(questData) do
+					NWB_DailyHeroic[k] = v;
+				end
+				NWB_DailyHeroic.lastSeen = NWB.data.tbcHDT;
+				NWB_DailyHeroic.questID = NWB.data.tbcHD;
+				NWB_DailyHeroic.id = nil;		
+			else
+				NWB_DailyHeroic = {};
+			end
+		else
+			NWB_DailyHeroic = {};
+		end
+		if (NWB.data.tbcPD and NWB.data.tbcPDT and GetServerTime() - NWB.data.tbcPDT < 86400) then
+			local questData = NWB:getPvpDailyData(NWB.data.tbcPD);
+			if (questData) then
+				NWB_DailyPvp = {};
+				for k, v in pairs(questData) do
+					NWB_DailyPvp[k] = v;
+				end
+				NWB_DailyPvp.lastSeen = NWB.data.tbcPDT;
+				NWB_DailyPvp.questID = NWB.data.tbcPD;
+				NWB_DailyPvp.id = nil;		
+			else
+				NWB_DailyPvp = {};
+			end
+		else
+			NWB_DailyPvp = {};
 		end
 	end
 end

@@ -1157,3 +1157,6 @@ L["rendLogQuestInfo"] = "Les remises de Rend s’affichent seulement pour la Hor
 L["recentlyKilledMsg"] = "Nouveau minuteur de PNJ %s récemment tué reçu, mort il y a %s";
 
 L["Shattrath City"] = "Shattrath";
+
+L["rendOrgRelayMsg"] = "Barre de minuteur Rend de La Croisée des chemins démarrée depuis le message d’Orgrimmar.";
+L["Guild versions seen since logon"] = "Versions de guilde vues depuis la connexion.";

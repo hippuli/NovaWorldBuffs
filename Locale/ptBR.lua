@@ -1188,3 +1188,6 @@ L["rendLogQuestInfo"] = "As entregas de Laceral só aparecem para a Horda.";
 L["recentlyKilledMsg"] = "Novo temporizador de NPC %s recém-morto recebido, morreu há %s";
 
 L["Shattrath City"] = "Shattrath";
+
+L["rendOrgRelayMsg"] = "Barra de temporizador do Rend da Encruzilhada iniciada pela mensagem de Orgrimmar.";
+L["Guild versions seen since logon"] = "Versões da guilda vistas desde o login.";

@@ -56,7 +56,7 @@ L["Be lifted by the rallying cry"] = "Lasst den Siegesschrei der Drachentöter e
 --Horde Nefarian buff NPC.
 L["High Overlord Saurfang"] = "Hochfürst Saurfang";
 --Horde Nefarian buff NPC first yell string (part of his first yell msg before before buff).
-L["NEFARIAN IS SLAIN"] = "NAFARIAN IST TOT";
+L["NEFARIAN IS SLAIN"] = "NEFARIAN IST TOT";
 --Horde Nefarian buff NPC second yell string (part of his second yell msg before before buff).
 L["Revel in his rallying cry"] = "Lasst seinen Siegesschrei eure Herzen höher schlagen";
 

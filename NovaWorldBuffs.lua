@@ -400,6 +400,7 @@ function NWB:OnInitialize()
 		self:createTerokkarMarkers();
 		self:populateDailyData();
 	end
+	self:updateDailyCache();
 	self:checkNewVersion();
 	--Rereshing frames to load fonts need to be done at entering world instead, to make sure all addons and shared fonts are loaded.
 	--self:refreshMinimapLayerFrame();
@@ -4914,6 +4915,9 @@ function NWB:updateMinimapButton(tooltip, frame)
 					local name = questData.nameLocale or questData.name;
 					tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r "
 							.. name .. " (" .. questData.abbrev .. ")");
+				else
+					tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r "
+							.. " Unknown quest ID " .. NWB.data.tbcDD);
 				end
 			elseif (NWB.isTBC) then
 				--Disabled this in wrath phase 4, there are no different dung dailies anyway just the same type every day.
@@ -4925,6 +4929,9 @@ function NWB:updateMinimapButton(tooltip, frame)
 					local name = questData.nameLocale or questData.name;
 					tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r "
 							.. name .. " (" .. questData.abbrev .. ")");
+				else
+					tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r "
+							.. " Unknown quest ID " .. NWB.data.tbcDD);
 				end
 			elseif (NWB.isTBC) then
 				--Disabled this in wrath phase 4, there are no different dung dailies anyway just the same type every day.
@@ -4940,6 +4947,9 @@ function NWB:updateMinimapButton(tooltip, frame)
 					local name = questData.nameLocale or questData.name;
 					tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r" .. texture .. "|cFF9CD6DE)|r "
 							.. name);
+				else
+					tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r" .. texture .. "|cFF9CD6DE)|r "
+							.. " Unknown quest ID " .. NWB.data.tbcDD);
 				end
 			else
 				tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r" .. texture .. "|cFF9CD6DE)|r Unknown.");
@@ -7636,24 +7646,39 @@ function NWB:getDmfStartEnd(month, nextYear, recalc)
 				dmfStartDay = i;
 			end
 		end]]
-		--There was an issue with using the date table above for a single user, thier client couldn't get the first day of the month correct.
-		--It was correct using %w instead so we'll just go with that for now.
-		for i = 1, 7 do
-			--Iterate the first 7 days in the month to find first friday.
-			--This was using saturday for a while which seemed correct when friday wasn't during some months, but now friday seems right again..
-			--If this is changed the offset says above needs adjusting to match.
-			--0 = Sunday -> 6 = Saturday.
-			if (date("%w", time({year = data.year, month = data.month, day = i})) == "5") then
-				--If day of the week (wday) is 6 (friday) then set this as first friday of the month.
-				dmfStartDay = i;
-				break;
+		local timeTable;
+		if (NWB.isTBC) then
+			--In TBC it seems to just be the first monday of the month?
+			for i = 1, 7 do
+				if (date("%w", time({year = data.year, month = data.month, day = i})) == "1") then
+					dmfStartDay = i;
+					break;
+				end
 			end
+			if (not dmfStartDay) then
+				return;
+			end
+			timeTable = {year = data.year, month = data.month, day = dmfStartDay, hour = hourOffset, min = minOffset, sec = 0};
+		else
+			--There was an issue with using the date table above for a single user, thier client couldn't get the first day of the month correct.
+			--It was correct using %w instead so we'll just go with that for now.
+			for i = 1, 7 do
+				--Iterate the first 7 days in the month to find first friday.
+				--This was using saturday for a while which seemed correct when friday wasn't during some months, but now friday seems right again..
+				--If this is changed the offset says above needs adjusting to match.
+				--0 = Sunday -> 6 = Saturday.
+				if (date("%w", time({year = data.year, month = data.month, day = i})) == "5") then
+					--If day of the week (wday) is 6 (friday) then set this as first friday of the month.
+					dmfStartDay = i;
+					break;
+				end
+			end
+			if (not dmfStartDay) then
+				--How is it possible this could fail to be found above? It was reported to have failed by a user.
+				return;
+			end
+			timeTable = {year = data.year, month = data.month, day = dmfStartDay + dayOffset, hour = hourOffset, min = minOffset, sec = 0};
 		end
-		if (not dmfStartDay) then
-			--How is it possible this could fail to be found above? It was reported to have failed by a user.
-			return;
-		end
-		local timeTable = {year = data.year, month = data.month, day = dmfStartDay + dayOffset, hour = hourOffset, min = minOffset, sec = 0};
 		local dataNextStatic, lastStaticDmf = NWB:getNextStaticDate();
 		local utcdate   = date("!*t", GetServerTime());
 		local localdate = date("*t", GetServerTime());
@@ -11359,7 +11384,7 @@ end)
 NWBVersionFrame.fs = NWBVersionFrame:CreateFontString("NWBVersionFrameFS", "ARTWORK");
 NWBVersionFrame.fs:SetPoint("TOP", 0, -0);
 NWBVersionFrame.fs:SetFont(NWB.regionFont, 14);
-NWBVersionFrame.fs:SetText("|cFFFFFF00Guild versions seen since logon|r");
+NWBVersionFrame.fs:SetText("|cFFFFFF00" .. L["Guild versions seen since logon"]);
 
 local NWBVersionDragFrame = CreateFrame("Frame", "NWBVersionDragFrame", NWBVersionFrame);
 NWBVersionDragFrame:SetToplevel(true);
@@ -12631,18 +12656,7 @@ function NWB:heraldFound(sender, layer)
 			senderMsg = " (" .. sender .. ")";
 		end
 		NWB:print(msg .. senderMsg);
-		if (_G["DBM"] and _G["DBM"].CreatePizzaTimer and NWB.isClassic) then
-			_G["DBM"]:CreatePizzaTimer(time, timerMsg);
-		end
-		--if (C_AddOns.IsAddOnLoaded("BigWigs") and NWB.db.global.bigWigsSupport) then
-		--	if (not SlashCmdList.BIGWIGSLOCALBAR) then
-		--		LoadAddOn("BigWigs_Plugins");
-		--	end
-		--	if (SlashCmdList.BIGWIGSLOCALBAR) then
-		--		SlashCmdList.BIGWIGSLOCALBAR(time .. " " .. timerMsg);
-		--	end
-		--end
-		NWB:sendBigWigs(time, timerMsg, "herald");
+		NWB:startRendDBMOrBigswigsTimer("heraldFound");
 	end
 end
 
@@ -12661,12 +12675,7 @@ end
 --Backup timer set from the yell incase the NPC wasn't found.
 function NWB:heraldYell()
 	if ((GetServerTime() - NWB.lastHeraldAlert) > 40) then
-		local timerMsg = L["heraldFoundTimerMsg"];
-		local time = 6;
-		if (_G["DBM"] and _G["DBM"].CreatePizzaTimer and NWB.isClassic) then
-			_G["DBM"]:CreatePizzaTimer(time, timerMsg);
-		end
-		NWB:sendBigWigs(time, timerMsg, "herald");
+		NWB:startRendDBMOrBigswigsTimer("heraldYell");
 	end
 	NWB.lastHeraldYell = GetServerTime();
 end

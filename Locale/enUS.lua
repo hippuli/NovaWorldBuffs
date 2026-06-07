@@ -36,7 +36,7 @@ L["Herald of Thrall"] = true;
 --Horde rend buff NPC first yell string (part of his first yell msg before before buff).
 L["Rend Blackhand, has fallen"] = true;
 --Horde rend buff NPC second yell string (part of his second yell msg before before buff).
-L["Be bathed in my power"] = true;
+L["Be bathed in my power"] = "Battle for the glory of the Horde"; --Changed to a part of the yell that matches both Thrall and Herald.
 
 --Horde Onyxia buff NPC.
 L["Overlord Runthak"] = true;
@@ -1137,3 +1137,6 @@ L["rendLogQuestInfo"] = "Rend quest handins can only be shown on the horde side.
 L["recentlyKilledMsg"] = "New recently killed %s NPC timer received, died %s ago";
 
 L["Shattrath City"] = "Shattrath City";
+
+L["rendOrgRelayMsg"] = "Started rend crossroads timer bar from orgrimmar msg.";
+L["Guild versions seen since logon"] = "Guild versions seen since logon.";

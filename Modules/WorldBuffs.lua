@@ -24,6 +24,8 @@ NWB.buffDrops = {rend = 0, ony = 0, nef = 0, zan = 0}; --Full duration buff appl
 NWB.lastSets = {rend = 0, ony = 0, nef = 0, zan = 0}; --Buff drops actual being set in the addon, if it meets all checks after buff applications.
 local isClassic = NWB.isClassic;
 local logonTime = 0;
+local dropDebug = false;
+local debugTimers = {};
 
 local f = CreateFrame("Frame");
 f:RegisterEvent("PLAYER_ENTERING_WORLD");
@@ -41,6 +43,17 @@ local buffDurations = {
 	["nef"] = 7200,
 	["zan"] = 7200,
 };
+
+--For timing exact buff drop timers.
+function NWB_EnableDropDebug()
+	NWB:print("Enabled buff drop debug msgs.", nil, "[NWB]");
+	dropDebug = true;
+end
+
+function NWB_DisableDropDebug()
+	NWB:print("Disabled buff drop debug msgs.", nil, "[NWB]");
+	dropDebug = false;
+end
 
 --5 second leeway for funcs sharing the same cooldown, this is for buff drops that have a 1 minute server cooldown anyway.
 local function isOnCooldown(cooldownType, type)
@@ -317,18 +330,20 @@ local function monsterYell(...)
 	if (name == L["Field Marshal Stonebridge"]) then
 		--Don't check yell string matches for the new NPC.
 		--Any yell will do for now to set a timestamp until languages are done properly.
-		
 		skipStringCheck = true;
 	end
 	--if ((name == L["Thrall"] or (name == L["Herald of Thrall"] and (not NWB.isLayered or NWB.faction == "Alliance")))
 	if ((name == L["Thrall"] or name == L["Herald of Thrall"])
 			and (string.match(msg, L["Rend Blackhand, has fallen"]) or skipStringCheck)) then
+		if (dropDebug and string.match(msg, L["Rend Blackhand, has fallen"])) then
+			debugTimers.rendYell = GetTime();
+		end
 		--6 seconds between first rend yell and buff applied.
 		NWB.data.rendYell = GetServerTime();
 		--Send first yell msg to guild so people in org see it, needed because 1 person online only will send msg.
 		local _, _, zone = NWB:GetPlayerZonePosition();
 		if  (name == L["Herald of Thrall"]) then
-			--If it was herald we may we in the barrens but not in crossraods to receive buff, set buff timer.
+			--If it was herald we may be in the barrens but not in crossraods to receive buff, set buff timer.
 			if (not NWB.isLayered) then
 				C_Timer.After(5, function()
 					NWB:setRendBuff("self", UnitName("player"));
@@ -386,6 +401,9 @@ local function monsterYell(...)
 			or (NWB.faction == "Alliance" and name == L["Major Mattingly"]
 			and (string.match(msg, L["history has been made"]) or skipStringCheck))) then
 		--14 seconds between first ony yell and buff applied.
+		if (dropDebug and (string.match(msg, L["Onyxia, has been slain"]) or string.match(msg, L["history has been made"]))) then
+			debugTimers.onyYell = GetTime();
+		end
 		NWB.data.onyYell = GetServerTime();
 		NWB:doFirstYell("ony", layerNum);
 		--Send first yell msg to guild so people in org see it, needed because 1 person online only will send msg.
@@ -399,6 +417,9 @@ local function monsterYell(...)
 		 	or (NWB.faction == "Alliance" and (name == L["Field Marshal Afrasiabi"] or name == L["Field Marshal Stonebridge"])
 		 	and (string.match(msg, L["the Lord of Blackrock is slain"]) or skipStringCheck))) then
 		--15 seconds between first nef yell and buff applied.
+		if (dropDebug and (string.match(msg, L["the Lord of Blackrock is slain"]) or string.match(msg, L["NEFARIAN IS SLAIN"]))) then
+			debugTimers.nefYell = GetTime();
+		end
 		NWB.data.nefYell = GetServerTime();
 		NWB:doFirstYell("nef", layerNum);
 		--Send first yell msg to guild so people in org see it, needed because 1 person online only will send msg.
@@ -414,6 +435,9 @@ local function monsterYell(...)
 			--They reused the same NPC and drop msg as ZF buff in SoD for the Sunken Temple buff.
 			--So block it from announcing, 6 second drop time like the other buffs, no reason to announce.
 			return;
+		end
+		if (dropDebug and (string.match(msg, L["Begin the ritual"]) or string.match(msg, L["The Blood God"]))) then
+			debugTimers.zanYell = GetTime();
 		end
 		--See the notes in NWB:doFirstYell() for exact buff drop timings info.
 		--Booty Bay yell (Zandalarian Emissary yells: The Blood God, the Soulflayer, has been defeated!  We are imperiled no longer!)
@@ -476,6 +500,9 @@ local function monsterSay(...)
 	--No need for a string check here, npc only ever says one thing in /say and it's the buff drop.
 	--if (name == L["Molthor"] and string.match(msg, L["only one step remains to rid us"])) then
 	if (name == L["Molthor"]) then
+		if (dropDebug) then
+			debugTimers.zanYell = GetTime();
+		end
 		NWB.data.zanYell = GetServerTime();
 		local delay = "50";
 		NWB:doFirstYell("zan", layerNum, nil, nil, delay);
@@ -746,24 +773,44 @@ local function combatLogEventUnfiltered(...)
 					--If layered then you must be in org to set the right layer id, the barrens is disabled.
 					--if (duration >= 3599.5 and (zone == 1454 or not NWB.isLayered) and unitType == "Creature") then
 					--print(duration, zone, unitType, NWB.data.rendYell, NWB.data.rendYell2, sourceGUID, destGUID, GetServerTime(), NWB.lastKnownLayerMapID)
-					if (duration >= (3599.5 - buffLag) and (zone == 1454 or (zone == 1413 and NWB.faction == "Alliance") or not NWB.isLayered) and unitType == "Creature"
+					if (duration >= (3599.5 - buffLag) and unitType == "Creature"
 							and ((GetServerTime() - NWB.data.rendYell2) < yellTwoOffset or (GetServerTime() - NWB.data.rendYell) < yellOneOffset)) then
-						NWB:trackNewBuff(spellName, "rend", npcID);
-						if (not NWB.buffDrops["rend"] or GetServerTime() - NWB.buffDrops["rend"] > NWB.buffDropSpamCooldown) then
-							NWB:playSound("soundsRendDrop", "rend");
-						end
-						if (NWB.db.global.cityGotBuffSummon) then
-							if (not InCombatLockdown() and C_SummonInfo.GetSummonConfirmTimeLeft() > 0) then
-								NWB.hideSummonPopup = true;
-								NWB:print("Got Rend buff, auto taking summon.");
+						if (dropDebug and zone == 1454 or zone == 1413) then
+							--Debug only stuff, had to move the zone checks above to down below instead so these could fire if a horde was in crossroads.
+							local debugTimer = debugTimers.rendYell;
+							if (zone == 1413) then
+								if (debugTimer and GetTime() - debugTimer < 300) then
+									print("NWB Debug: Rend buff dropped after " .. GetTime() - debugTimer .. " seconds from herald yell.");
+								end
+								local debugTimer = debugTimers.orgToCrossroads;
+								if (debugTimer and GetTime() - debugTimer < 300) then
+									print("NWB Debug: Org yell to crossroads rend buff dropped after " .. GetTime() - debugTimer .. " seconds.");
+								end
+							else
+								if (debugTimer and GetTime() - debugTimer < 300) then
+									print("NWB Debug: Rend buff dropped after " .. GetTime() - debugTimer .. " seconds.");
+								end
 							end
-							NWB:acceptSummon();
 						end
-						setBuffTimer("rend", sourceGUID, zoneID, npcID);
-						--NWB:debug("rend hand in delay", GetTime() - lastRendHandIn);
-						--NWB:debug("rend herald found delay", GetServerTime() - NWB.lastHeraldAlert);
-						--NWB:debug("rend herald yell delay", GetServerTime() - NWB.lastHeraldYell);
-						NWB.buffDrops["rend"] = GetServerTime();
+						if (zone == 1454 or (zone == 1413 and NWB.faction == "Alliance") or not NWB.isLayered) then
+							--Timer stuff, more strict for horde timer caus of layers.
+							NWB:trackNewBuff(spellName, "rend", npcID);
+							if (not NWB.buffDrops["rend"] or GetServerTime() - NWB.buffDrops["rend"] > NWB.buffDropSpamCooldown) then
+								NWB:playSound("soundsRendDrop", "rend");
+							end
+							if (NWB.db.global.cityGotBuffSummon) then
+								if (not InCombatLockdown() and C_SummonInfo.GetSummonConfirmTimeLeft() > 0) then
+									NWB.hideSummonPopup = true;
+									NWB:print("Got Rend buff, auto taking summon.");
+								end
+								NWB:acceptSummon();
+							end
+							setBuffTimer("rend", sourceGUID, zoneID, npcID);
+							--NWB:debug("rend hand in delay", GetTime() - lastRendHandIn);
+							--NWB:debug("rend herald found delay", GetServerTime() - NWB.lastHeraldAlert);
+							--NWB:debug("rend herald yell delay", GetServerTime() - NWB.lastHeraldYell);
+							NWB.buffDrops["rend"] = GetServerTime();
+						end
 					else
 						NWB:syncBuffsWithCurrentDuration();
 						checkBuffDropped("rend", spellName, duration, npcID, zoneID);
@@ -772,6 +819,12 @@ local function combatLogEventUnfiltered(...)
 					--Zan buff has no sourceName or sourceGUID, not sure why.
 					local duration = NWB:getBuffDuration(L["Spirit of Zandalar"], 4);
 					if (duration >= 7199.5) then
+						if (dropDebug) then
+							local debugTimer = debugTimers.zanYell;
+							if (debugTimer and GetTime() - debugTimer < 300) then
+								print("NWB Debug: Zandalar buff dropped after " .. GetTime() - debugTimer .. " seconds.");
+							end
+						end
 						NWB:setZanBuff("self", UnitName("player"), zoneID, sourceGUID);
 						NWB:trackNewBuff(spellName, "zan", npcID);
 						--Not sure why this triggers 4 times on PTR, needs more testing once it's on live server but for now we do a 1 second cooldown.
@@ -803,6 +856,12 @@ local function combatLogEventUnfiltered(...)
 							local duration = NWB:getBuffDuration(L["Rallying Cry of the Dragonslayer"], 2);
 							local _, _, zone = NWB:GetPlayerZonePosition();
 							if (duration >= (7199.5  - buffLag)) then
+								if (dropDebug) then
+									local debugTimer = debugTimers.nefYell;
+									if (debugTimer and GetTime() - debugTimer < 300) then
+										print("NWB Debug: Nef buff dropped after " .. GetTime() - debugTimer .. " seconds.");
+									end
+								end
 								if (((not NWB.noGUID or NWB.currentZoneIDStrict > 0) and (zone == 1453 or zone == 1454))
 										or not NWB.isLayered) then
 									setBuffTimer("nef", sourceGUID, zoneID, npcID);
@@ -835,6 +894,12 @@ local function combatLogEventUnfiltered(...)
 							local duration = NWB:getBuffDuration(L["Rallying Cry of the Dragonslayer"], 2);
 							local _, _, zone = NWB:GetPlayerZonePosition();
 							if (duration >= (7199.5 - buffLag)) then
+								if (dropDebug) then
+									local debugTimer = debugTimers.onyYell;
+									if (debugTimer and GetTime() - debugTimer < 300) then
+										print("NWB Debug: Ony buff dropped after " .. GetTime() - debugTimer .. " seconds.");
+									end
+								end
 								if (((not NWB.noGUID or NWB.currentZoneIDStrict > 0) and (zone == 1453 or zone == 1454))
 									or not NWB.isLayered) then
 									setBuffTimer("ony", sourceGUID, zoneID, npcID);
@@ -1581,7 +1646,7 @@ function NWB:doFirstYell(type, layer, source, distribution, arg)
 					end
 				end
 				NWB:playSound("soundsFirstYell", "rend");
-				NWB:sendBigWigs(6, "[NWB] " .. L["rend"], type);
+				NWB:startRendDBMOrBigswigsTimer("rend");
 			end
 			rendFirstYell = GetServerTime();
 		end
@@ -1604,7 +1669,7 @@ function NWB:doFirstYell(type, layer, source, distribution, arg)
 					end
 				end
 				NWB:playSound("soundsFirstYell", "rend");
-				NWB:sendBigWigs(6, "[NWB] " .. crossroadsMsg .. L["rend"], type);
+				NWB:startRendDBMOrBigswigsTimer("rendCrossroads");
 			end
 			rendFirstYell = GetServerTime();
 		end
@@ -1894,6 +1959,50 @@ function NWB:doHandIn(id, layer, sender)
 			end
 		end
 		NWB:print(msg);
+	end
+end
+
+local lastRendBar = 0;
+function NWB:startRendDBMOrBigswigsTimer(type)
+	if ((GetTime() - lastRendBar) < 40) then
+		return;
+	end
+	if (type == "rend") then
+		lastRendBar = GetTime();
+		local _, _, zone = NWB:GetPlayerZonePosition();
+		if (zone == 1413) then
+			--If in crossroads start 20 sec timer instead and include dbm.
+			if (dropDebug) then
+				debugTimers.orgToCrossroads = GetTime();
+			end
+			local crossroadsMsg = "(" .. L["Crossroads"] .. ") ";
+			NWB:sendBigWigs(16, "[NWB] " .. L["rend"] .. " " .. crossroadsMsg, type);
+			if (_G["DBM"] and _G["DBM"].CreatePizzaTimer and NWB.isClassic) then
+				_G["DBM"]:CreatePizzaTimer(16, L["rend"] .. " " .. crossroadsMsg);
+				print("NWB: " .. L["rendOrgRelayMsg"]);
+			end
+		else
+			NWB:sendBigWigs(6, "[NWB] " .. L["rend"], type);
+		end
+	elseif (type == "rendCrossroads") then
+		lastRendBar = GetTime();
+		local crossroadsMsg = "(" .. L["Crossroads"] .. ") ";
+		NWB:sendBigWigs(6, "[NWB] " .. L["rend"] .. " " .. crossroadsMsg, type);
+	elseif (type == "heraldFound") then
+		lastRendBar = GetTime();
+		local timerMsg = L["heraldFoundTimerMsg"];
+		if (_G["DBM"] and _G["DBM"].CreatePizzaTimer and NWB.isClassic) then
+			_G["DBM"]:CreatePizzaTimer(20, timerMsg);
+		end
+		NWB:sendBigWigs(20, timerMsg, "herald");
+	elseif (type == "heraldYell") then
+		--Backup timer set from the yell incase the NPC wasn't found.
+		lastRendBar = GetTime();
+		local timerMsg = L["heraldFoundTimerMsg"];
+		if (_G["DBM"] and _G["DBM"].CreatePizzaTimer and NWB.isClassic) then
+			_G["DBM"]:CreatePizzaTimer(6, timerMsg);
+		end
+		NWB:sendBigWigs(6, timerMsg, "herald");
 	end
 end
 

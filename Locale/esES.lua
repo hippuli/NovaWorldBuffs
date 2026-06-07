@@ -117,9 +117,9 @@ L["Thrall"] = "Thrall";
 --Horde The Barrens Rend buff NPC.
 L["Herald of Thrall"] = "Heraldo de Thrall";
 --Horde rend buff NPC first yell string (part of his first yell msg before before buff).
---L["Rend Blackhand, has fallen"] = "¡El falso Jefe de Guerra Rend Puño Negro se ha caído!";
+L["Rend Blackhand, has fallen"] = "¡El falso Jefe de Guerra, Rend Puño Negro, ha caído!";
 --Horde rend buff NPC second yell string (part of his second yell msg before before buff).
---L["Be bathed in my power"] = "";
+L["Be bathed in my power"] = "Báñate en mi poder";
 
 --Horde Onyxia buff NPC.
 --L["Overlord Runthak"] = "Señor Supremo Runthak";
@@ -144,7 +144,7 @@ L["Major Mattingly"] = "Mayor Mattingly";
 --Alliance Onyxia buff NPC first yell string (part of his first yell msg before before buff).
 L["history has been made"] = "hemos hecho historia";
 --Alliance Onyxia buff NPC second yell string (part of his second yell msg before before buff).
---L["Onyxia, hangs from the arches"] = "";
+L["Onyxia, hangs from the arches"] = "Contemplad el poder de la Alianza";
 
 
 --Alliance Nefarian buff NPC.
@@ -1241,3 +1241,6 @@ L["For help or suggestions"] = "Ayuda o sugerencias";
 L["recentlyKilledMsg"] = "Nuevo temporizador de PNJ de %s recién muerto recibido, murió hace %s";
 
 L["Shattrath City"] = "Ciudad de Shattrath";
+
+L["rendOrgRelayMsg"] = "Iniciada la barra de temporizador de Rend de El Cruce desde el mensaje de Orgrimmar.";
+L["Guild versions seen since logon"] = "Versiones de la hermandad vistas desde el inicio de sesión.";

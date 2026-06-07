@@ -2336,14 +2336,13 @@ end
 
 function NWB:checkNewVersion()
 	--NWB.db.global.versions = {};
-	local newVersionNotes = 3.30;
+	local newVersionNotes = 3.36;
 	if (NWB.version and NWB.version == newVersionNotes) then
 		if (not NWB.db.global.versions[NWB.version]) then
-			if (NWB.isTBC) then
+			if (NWB.isClassic) then
 				--if (NWB:GetCurrentRegion() == 1 and not string.match(NWB.realm, "(AU)")) then
 					local notes = {
-						"Disabled guild msgs for Terokkar towers by default, it's a bit spammy with so many layers compared to original TBC classic, can be enabled near the top in config if your guild wants them.",
-						"Made the shat and terokkar map icons smaller and off to the side a bit more, reminder they can be hidden in config if you want.",
+						"Added a feature to create earlier timer bars for rend drops at the crossroads if someone from your guild with this addon is in orgrimmar when it drops there to relay the msg. This starts a DBM or Bigwigs bar (depending on what you're using) 16 seconds long which is roughly how long the crossroads rend drops after Thrall yells in org. The timer may need to be adjusted slightly after more testing as it can vary a bit for some reason.",
 					};
 					loadNewVersionFrame(NWB.version, notes, "Nova World Buffs", "Interface\\Icons\\inv_misc_head_dragon_01", -50, 350);
 				--end

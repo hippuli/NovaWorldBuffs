@@ -45,11 +45,11 @@ L["Rend Blackhand, has fallen"] = "¡El falso Jefe de Guerra Rend Puño Negro se
 --L["Be bathed in my power"] = "";
 
 --Horde Onyxia buff NPC.
-L["Overlord Runthak"] = "Señor Supremo Runthak";
+L["Overlord Runthak"] = "Señor supremo Runthak";
 --Horde Onyxia buff NPC first yell string (part of his first yell msg before before buff).
---L["Onyxia, has been slain"] = "";
+L["Onyxia, has been slain"] = "Miembros de la Horda, ciudadanos de Orgrimmar";
 --Horde Onyxia buff NPC second yell string (part of his second yell msg before before buff).
---L["Be lifted by the rallying cry"] = "";
+L["Be lifted by the rallying cry"] = "Sean testigos del innegable poder de su Jefe de Guerra";
 
 --Horde Nefarian buff NPC.
 L["High Overlord Saurfang"] = "Alto señor supremo Colmillosauro";
@@ -76,7 +76,7 @@ L["Field Marshal Stonebridge"] = "Mariscal de campo Petraponte";
 --Alliance Nefarian buff NPC first yell string (part of his first yell msg before before buff).
 L["the Lord of Blackrock is slain"] = "el Señor de Roca Negra está muerto";
 --Alliance Nefarian buff NPC second yell string (part of his second yell msg before before buff).
---L["Revel in the rallying cry"] = "";
+L["Revel in the rallying cry"] = "Reúnanse alrededor de nuestro campeón";
 
 ---===========----
 ---NPC's killed---
@@ -1172,3 +1172,6 @@ L["rendLogQuestInfo"] = "Las entregas de Rend solo se muestran para la Horda.";
 L["recentlyKilledMsg"] = "Nuevo temporizador de PNJ de %s recién muerto recibido, murió hace %s";
 
 L["Shattrath City"] = "Ciudad de Shattrath";
+
+L["rendOrgRelayMsg"] = "Iniciada la barra de temporizador de Rend de El Cruce desde el mensaje de Orgrimmar.";
+L["Guild versions seen since logon"] = "Versiones de la hermandad vistas desde el inicio de sesión.";
