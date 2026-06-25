@@ -1636,13 +1636,14 @@ function NWB:doFirstYell(type, layer, source, distribution, arg)
 				NWB.data.rendYell = GetServerTime();
 			end
 			if (NWB:checkEventStatus("firstYell", type)) then
+				local dropMsg = string.format(L["rendFirstYellMsg"] .. layerMsg, 6);
 				if (NWB.db.global.guildNpcDialogue == 1 and (NWB.faction == "Horde" or NWB.db.global.allianceEnableRend)) then
-					NWB:sendGuildMsg(L["rendFirstYellMsg"] .. layerMsg, "guildNpcDialogue", "rend");
+					NWB:sendGuildMsg(dropMsg, "guildNpcDialogue", "rend");
 				end
 				if (NWB.faction == "Horde" or NWB.db.global.allianceEnableRend) then
 					NWB:startFlash("flashFirstYell", type);
 					if (NWB.db.global.middleBuffWarning and (not NWB.db.global.chatOnlyInCity or NWB:isCapitalCityAction(type))) then
-						NWB:middleScreenMsg("rendFirstYell", L["rendFirstYellMsg"] .. layerMsg, nil, 5);
+						NWB:middleScreenMsg("rendFirstYell", dropMsg, nil, 5);
 					end
 				end
 				NWB:playSound("soundsFirstYell", "rend");
@@ -1659,13 +1660,14 @@ function NWB:doFirstYell(type, layer, source, distribution, arg)
 				NWB.data.rendYell = GetServerTime();
 			end
 			if (NWB:checkEventStatus("firstYell", type)) then
+				local dropMsg = string.format(L["rendFirstYellMsg"] .. layerMsg, 6);
 				if (NWB.db.global.guildNpcDialogue == 1 and (NWB.faction == "Horde" or NWB.db.global.allianceEnableRend)) then
-					NWB:sendGuildMsg(crossroadsMsg .. L["rendFirstYellMsg"] .. layerMsg, "guildNpcDialogue", "rend");
+					NWB:sendGuildMsg(crossroadsMsg .. dropMsg, "guildNpcDialogue", "rend");
 				end
 				if (NWB.faction == "Horde" or NWB.db.global.allianceEnableRend) then
 					NWB:startFlash("flashFirstYell", type);
 					if (NWB.db.global.middleBuffWarning and (not NWB.db.global.chatOnlyInCity or NWB:isCapitalCityAction(type))) then
-						NWB:middleScreenMsg("rendFirstYell", crossroadsMsg .. L["rendFirstYellMsg"] .. layerMsg, nil, 5);
+						NWB:middleScreenMsg("rendFirstYell", crossroadsMsg .. dropMsg, nil, 5);
 					end
 				end
 				NWB:playSound("soundsFirstYell", "rend");
@@ -1680,12 +1682,13 @@ function NWB:doFirstYell(type, layer, source, distribution, arg)
 				NWB.data.onyYell = GetServerTime();
 			end
 			if (NWB:checkEventStatus("firstYell", type)) then
+				local dropMsg = string.format(L["onyxiaFirstYellMsg"] .. layerMsg, 14);
 				if (NWB.db.global.guildNpcDialogue == 1 and NWB:checkEventStatus("firstYell", type, "guild")) then
-					NWB:sendGuildMsg(L["onyxiaFirstYellMsg"] .. layerMsg, "guildNpcDialogue", "ony");
+					NWB:sendGuildMsg(dropMsg, "guildNpcDialogue", "ony");
 				end
 				NWB:startFlash("flashFirstYell", type);
 				if (NWB.db.global.middleBuffWarning and (not NWB.db.global.chatOnlyInCity or NWB:isCapitalCityAction(type))) then
-					NWB:middleScreenMsg("onyFirstYell", L["onyxiaFirstYellMsg"] .. layerMsg, nil, 5);
+					NWB:middleScreenMsg("onyFirstYell", dropMsg, nil, 5);
 				end
 				NWB:playSound("soundsFirstYell", "ony");
 				NWB:sendBigWigs(14, "[NWB] " .. L["Rallying Cry of the Dragonslayer"], type);
@@ -1699,15 +1702,20 @@ function NWB:doFirstYell(type, layer, source, distribution, arg)
 				NWB.data.nefYell = GetServerTime();
 			end
 			if (NWB:checkEventStatus("firstYell", type)) then
+				local seconds = 14;
+				if (NWB.faction == "Alliance") then
+					seconds = 12;
+				end
+				local dropMsg = string.format(L["nefarianFirstYellMsg"] .. layerMsg, seconds);
 				if (NWB.db.global.guildNpcDialogue == 1 and NWB:checkEventStatus("firstYell", type, "guild")) then
-					NWB:sendGuildMsg(L["nefarianFirstYellMsg"] .. layerMsg, "guildNpcDialogue", "nef");
+					NWB:sendGuildMsg(dropMsg, "guildNpcDialogue", "nef");
 				end
 				NWB:startFlash("flashFirstYell", type);
 				if (NWB.db.global.middleBuffWarning and (not NWB.db.global.chatOnlyInCity or NWB:isCapitalCityAction(type))) then
-					NWB:middleScreenMsg("nefFirstYell", L["nefarianFirstYellMsg"] .. layerMsg, nil, 5);
+					NWB:middleScreenMsg("nefFirstYell", dropMsg, nil, 5);
 				end
 				NWB:playSound("soundsFirstYell", "nef");
-				NWB:sendBigWigs(15, "[NWB] " .. L["Rallying Cry of the Dragonslayer"], type);
+				NWB:sendBigWigs(seconds, "[NWB] " .. L["Rallying Cry of the Dragonslayer"], type);
 			end
 			nefFirstYell = GetServerTime();
 		end

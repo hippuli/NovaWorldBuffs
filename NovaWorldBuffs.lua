@@ -4245,7 +4245,7 @@ function NWB:createBroker()
 				if (InterfaceOptionsFrame and InterfaceOptionsFrame:IsShown()) then
 					InterfaceOptionsFrame:Hide();
 				elseif (SettingsPanel and SettingsPanel:IsShown()) then
-					SettingsPanel:Hide();
+					HideUIPanel(SettingsPanel);
 				else
 					NWB:openConfig();
 				end
@@ -7647,7 +7647,8 @@ function NWB:getDmfStartEnd(month, nextYear, recalc)
 			end
 		end]]
 		local timeTable;
-		if (NWB.isTBC) then
+		--This was fixed in a hotfix apparently, back to first friday.
+		--[[if (NWB.isTBC) then
 			--In TBC it seems to just be the first monday of the month?
 			for i = 1, 7 do
 				if (date("%w", time({year = data.year, month = data.month, day = i})) == "1") then
@@ -7659,7 +7660,7 @@ function NWB:getDmfStartEnd(month, nextYear, recalc)
 				return;
 			end
 			timeTable = {year = data.year, month = data.month, day = dmfStartDay, hour = hourOffset, min = minOffset, sec = 0};
-		else
+		else]]
 			--There was an issue with using the date table above for a single user, thier client couldn't get the first day of the month correct.
 			--It was correct using %w instead so we'll just go with that for now.
 			for i = 1, 7 do
@@ -7678,7 +7679,7 @@ function NWB:getDmfStartEnd(month, nextYear, recalc)
 				return;
 			end
 			timeTable = {year = data.year, month = data.month, day = dmfStartDay + dayOffset, hour = hourOffset, min = minOffset, sec = 0};
-		end
+		--end
 		local dataNextStatic, lastStaticDmf = NWB:getNextStaticDate();
 		local utcdate   = date("!*t", GetServerTime());
 		local localdate = date("*t", GetServerTime());
