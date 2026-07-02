@@ -111,7 +111,7 @@ function NWB:getBlackrockTimeString(isShort, veryShort)
 	local text;
 	local timeLeft, type, timestamp, realTimeLeft = getTimeLeft();
 	if (timeLeft) then
-		local timeString = NWB:getTimeString(timeLeft, true, "short");
+		local timeString = NWB:getTimeString(timeLeft, true, "medium");
 		if (veryShort) then
 			if (type == "running") then
 				--For the overlay we don't show it running, so add the time until next start.

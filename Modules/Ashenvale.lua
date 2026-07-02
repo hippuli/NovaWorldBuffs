@@ -106,12 +106,14 @@ function NWB:getAshenvaleTimeString(isShort, veryShort)
 	local text;
 	local timeLeft, type, timestamp = getTimeLeft();
 	if (timeLeft) then
-		local timeString = NWB:getTimeString(timeLeft, true, "short");
 		if (veryShort) then
+			local timeString = NWB:getTimeString(timeLeft, true, "short");
 			text = L["Ashenvale"] .. ": |cFF9CD6DE" .. timeString .. "|r";
 		elseif (isShort) then
+			local timeString = NWB:getTimeString(timeLeft, true, "short");
 			text = string.format(L["startsIn"], "|cFF9CD6DE" .. timeString .. "|r");
 		else
+			local timeString = NWB:getTimeString(timeLeft, true, "medium");
 			text = string.format(L["ashenvaleEventStartsIn"], "|cFF9CD6DE" .. timeString .. "|r");
 		end
 	end

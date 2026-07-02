@@ -117,8 +117,8 @@ function NWB:getStranglethornTimeString(isShort, veryShort)
 	local text;
 	local timeLeft, type, timestamp, realTimeLeft = getTimeLeft();
 	if (timeLeft) then
-		local timeString = NWB:getTimeString(timeLeft, true, "short");
 		if (veryShort) then
+			local timeString = NWB:getTimeString(timeLeft, true, "short");
 			if (type == "running") then
 				--For the overlay we don't show it running, so add the time until next start.
 				timeString = NWB:getTimeString(timeLeft + 9000, true, "short");
@@ -129,12 +129,14 @@ function NWB:getStranglethornTimeString(isShort, veryShort)
 				text = L["Stranglethorn"] .. ": |cFF9CD6DE" .. timeString .. "|r";
 			--end
 		elseif (isShort) then
+			local timeString = NWB:getTimeString(timeLeft, true, "short");
 			if (type == "running") then
 				text = "|cFF00C800" .. string.format(L["stranglethornEventRunning"], "|cFF9CD6DE" .. timeString .. "|r") .. "|r |cFF9CD6DE" .. L["remaining"] .. "|r";
 			else
 				text = string.format(L["startsIn"], "|cFF9CD6DE" .. timeString .. "|r");
 			end
 		else
+			local timeString = NWB:getTimeString(timeLeft, true, "medium");
 			if (type == "running") then
 				text = "|cFF00C800" .. string.format(L["stranglethornEventRunning"], "|cFF9CD6DE" .. timeString .. "|r") .. "|r |cFF9CD6DE" .. L["remaining"] .. "|r";
 			else

@@ -11,6 +11,23 @@ function NWB:setRegionName()
 	regionName = NWB.LibRealmInfo:GetCurrentRegion();
 end
 
+--Adjust time based on weekly reset time from the server, just incase our timestamps are off by a bit or DST is moved/bugs or whatever. 
+local function adjustResetTime(timestamp)
+	if (C_DateAndTime and C_DateAndTime.GetSecondsUntilWeeklyReset) then
+		local margin = 10800; --3 hours is how far away from our timestamp we'd correct from.
+		local nextWeeklyReset = GetServerTime() + C_DateAndTime.GetSecondsUntilWeeklyReset();
+		for i = 1, 7 do
+			if (timestamp < (nextWeeklyReset + margin) and timestamp > (nextWeeklyReset - margin)) then
+				--Our timestamp is within 3 hours so adjust our timestamp to the correct time of day.
+				timestamp = nextWeeklyReset;
+				break;
+			end
+			nextWeeklyReset = nextWeeklyReset - 10800;
+		end
+	end
+	return timestamp;
+end
+
 function NWB:getWeeklyReset()
 	local serverTime = GetServerTime();
 	if (not serverTime) then
@@ -101,6 +118,7 @@ function NWB:getThreeDayReset()
 	--Divide seconds elapsed since our static timestamp in the past by the cycle time (3 days).
 	--Get the floor of that result (which would be last reset if multipled by cycle time) then add 1 for next reset, then multiply by cycle time.
 	local nextReset = staticPastResetTime + ((math.floor(secondsSinceFirstReset / 259200) + 1) * 259200);
+	nextReset = adjustResetTime(nextReset);
 	local lastReset = nextReset - 259200;
 	return nextReset, lastReset;
 end
