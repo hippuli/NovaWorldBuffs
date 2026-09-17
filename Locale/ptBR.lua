@@ -39,9 +39,11 @@ L["Thrall"] = "Thrall";
 --Horde The Barrens Rend buff NPC.
 L["Herald of Thrall"] = "Arauto de Thrall";
 --Horde rend buff NPC first yell string (part of his first yell msg before before buff).
+-- [18:04:52] Thrall: Honre seus heróis! Neste dia eles desferiram um belo golpe contra um de nossos inimigos mais odiados! O falso Chefe Guerreiro, Laceral Mão Negra, caiu!
 L["Rend Blackhand, has fallen"] = "O falso Chefe Guerreiro, Laceral Mão Negra, caiu!";
 --Horde rend buff NPC second yell string (part of his second yell msg before before buff).
---L["Be bathed in my power"] = "";
+--[18:04:59] Thrall: Banhe-se com meu poder! Beba da minha força! Lute pela glória da Horda!
+L["Be bathed in my power"] = "Banhe-se com meu poder";
 
 --Horde Onyxia buff NPC.
 L["Overlord Runthak"] = "Lorde Supremo Runthak";
@@ -53,9 +55,11 @@ L["Overlord Runthak"] = "Lorde Supremo Runthak";
 --Horde Nefarian buff NPC.
 L["High Overlord Saurfang"] = "Lorde Supremo Saurfang";
 --Horde Nefarian buff NPC first yell string (part of his first yell msg before before buff).
+-- [18:03:32] Lorde Supremo Saurfang: NEFARIAN ESTÁ MORTO! Povo de Orgrimmar, curve-se ante a força de Sharpboner e seus aliados, pois eles desferiram um duro golpe contra a Revoada Dragônica Negra, um golpe que com certeza instigará os Aspectos em seu torpor! Certamente essa derrota será sentida pelo pai da Revoada Negra. Hoje o Asa da Morte se contorce de dor e angústia!
 L["NEFARIAN IS SLAIN"] = "NEFARIAN ESTÁ MORTO!";
 --Horde Nefarian buff NPC second yell string (part of his second yell msg before before buff).
---L["Revel in his rallying cry"] = "";
+-- [18:03:40] Lorde Supremo Saurfang: Exaltem e festejem a proeza de Sharpboner! Bradem seu grito de guerra!
+L["Revel in his rallying cry"] = "Bradem seu grito de guerra";
 
 ---========---
 ---Alliance---
@@ -73,9 +77,11 @@ L["history has been made"] = "fez-se história";
 L["Field Marshal Afrasiabi"] = "Marechal-de-campo Afrasiabi";
 L["Field Marshal Stonebridge"] = "Marechal-de-campo Pontepedra";
 --Alliance Nefarian buff NPC first yell string (part of his first yell msg before before buff).
+-- [21:25:44] Marechal-de-campo Pontepedra: Cidadãos da Aliança, o Senhor dos Rocha Negra foi derrubado! Nefarian foi subjugado pela união das forças de Glanador-Ashkandi e seus aliados!
 L["the Lord of Blackrock is slain"] = "o Senhor da Rocha Negra foi derrubado";
 --Alliance Nefarian buff NPC second yell string (part of his second yell msg before before buff).
---L["Revel in the rallying cry"] = "";
+-- [21:25:55] Marechal-de-campo Pontepedra: Deixem seus espíritos se elevarem aos céus! Reúnam-se ao nosso campeão e celebrem sua glória! Bradem o grito de guerra do matador de dragões!
+L["Revel in the rallying cry"] = "Bradem o grito de guerra";
 
 ---===========----
 ---NPC's killed---

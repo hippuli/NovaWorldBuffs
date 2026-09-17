@@ -9,7 +9,11 @@ local addonName, addon = ...;
 addon.a = LibStub("AceAddon-3.0"):NewAddon("NovaWorldBuffs", "AceComm-3.0");
 local NWB = addon.a;
 --local L = LibStub("AceLocale-3.0"):GetLocale("NovaWorldBuffs");
+local _, _, _, tocVersion = GetBuildInfo()
 NWB.expansionNum = 1;
+if (tocVersion > 16000 and tocVersion < 20000) then
+	NWB.isForever = true;
+end
 if (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC) then
 	NWB.isClassic = true;
 	if (C_Seasons and C_Seasons.GetActiveSeason() == 2) then

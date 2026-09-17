@@ -703,7 +703,7 @@ L["buffHelpersTextDesc5"] = "龙头/雷德 Buff";
 L["cityGotBuffSummonTitle"] = "龙头/雷德 Buff后召唤";
 L["cityGotBuffSummonDesc"] = "取得黑龙/奈法/雷德Buff后，自动接受召唤。";
 
-L["heraldFoundCrossroads"] = "前方发现! 十字路口-雷德Buff將在20秒施放。";
+L["heraldFoundCrossroads"] = "前方发现! 十字路口-雷德Buff将在20秒施放。";
 L["heraldFoundTimerMsg"] = "十字路口-雷德"; --DBM/Bigwigs timer bar text.
 
 L["guildNpcWalkingTitle"] = "NPC移动";
@@ -722,60 +722,60 @@ L["Gnomish Mind Control Cap"] = "地精洗脑帽";
 
 
 L["tbcHeaderText"] = "燃烧的远征选项";
-L["tbcNoteText"] = "注意: 所有公會提醒在TBC的鏡像下關閉。.";
+L["tbcNoteText"] = "注意: 所有公会提醒在TBC的镜像下关闭。.";
 
-L["disableSoundsAboveMaxBuffLevelTitle"] = "在64級以上關閉音效";
-L["disableSoundsAboveMaxBuffLevelDesc"] = "在於TCB領域時為63級以上角色，關閉世界增益音效?";
+L["disableSoundsAboveMaxBuffLevelTitle"] = "在64级以上关闭音效";
+L["disableSoundsAboveMaxBuffLevelDesc"] = "在于TCB领域时为63级以上角色，关闭世界增益音效?";
 
-L["disableSoundsAllLevelsTitle"] = "所有級別角色關閉音效";
-L["disableSoundsAllLevelsDesc"] = "為 TBC 領域的所有級別的角色，關閉世界增益音效。";
+L["disableSoundsAllLevelsTitle"] = "所有级别角色关闭音效";
+L["disableSoundsAllLevelsDesc"] = "为 TBC 领域的所有级别的角色，关闭世界增益音效。";
 
-L["disableMiddleAboveMaxBuffLevelTitle"] = "在64級以上關閉螢幕提示";
-L["disableMiddleAboveMaxBuffLevelDesc"] = "在於TCB領域時為63級以上角色，關閉世界增益螢幕提示。";
+L["disableMiddleAboveMaxBuffLevelTitle"] = "在64级以上关闭屏幕提示";
+L["disableMiddleAboveMaxBuffLevelDesc"] = "在于TCB领域时为63级以上角色，关闭世界增益屏幕提示。";
 
-L["disableMiddleAllLevelsTitle"] = "所有級別角色關閉螢幕提示";
-L["disableMiddleAllLevelsDesc"] = "為 TBC 領域的所有級別的角色，關閉世界增益螢幕提示。";
+L["disableMiddleAllLevelsTitle"] = "所有级别角色关闭屏幕提示";
+L["disableMiddleAllLevelsDesc"] = "为 TBC 领域的所有级别的角色，关闭世界增益屏幕提示。";
 
-L["disableChatAboveMaxBuffLevelTitle"] = "在64級以上關閉聊天提示";
-L["disableChatAboveMaxBuffLevelDesc"] = "在於TCB領域時為63級以上角色，關閉世界增益聊天提示。";
+L["disableChatAboveMaxBuffLevelTitle"] = "在64级以上关闭聊天提示";
+L["disableChatAboveMaxBuffLevelDesc"] = "在于TCB领域时为63级以上角色，关闭世界增益聊天提示。";
 
-L["disableChatAllLevelsTitle"] = "所有級別角色關閉聊天提示";
-L["disableChatAllLevelsDesc"] = "為 TBC 領域的所有級別的角色，關閉世界增益聊天提醒示窗。";
+L["disableChatAllLevelsTitle"] = "所有级别角色关闭聊天提示";
+L["disableChatAllLevelsDesc"] = "为 TBC 领域的所有级别的角色，关闭世界增益聊天提醒示窗。";
 
-L["disableFlashAboveMaxBuffLevelTitle"] = "在64級以上關閉螢幕閃爍";
-L["disableFlashAboveMaxBuffLevelDesc"] = "在於TCB領域時為63級以上角色關閉螢幕閃爍。";
+L["disableFlashAboveMaxBuffLevelTitle"] = "在64级以上关闭屏幕闪烁";
+L["disableFlashAboveMaxBuffLevelDesc"] = "在于TCB领域时为63级以上角色关闭屏幕闪烁。";
 
-L["disableFlashAllLevelsTitle"] = "所有級別角色關閉螢幕閃爍";
-L["disableFlashAllLevelsDesc"] = "為 TBC 領域的所有級別的角色，關閉螢幕閃爍。";
+L["disableFlashAllLevelsTitle"] = "所有级别角色关闭屏幕闪烁";
+L["disableFlashAllLevelsDesc"] = "为 TBC 领域的所有级别的角色，关闭屏幕闪烁。";
 
-L["disableLogonAboveMaxBuffLevelTitle"] = "在64級以上關閉登錄計時器 ";
-L["disableLogonAboveMaxBuffLevelDesc"] = "當您在 TBC 領域登錄 63 級以上的角色時，在聊天中關閉計時器？";
+L["disableLogonAboveMaxBuffLevelTitle"] = "在64级以上关闭登录计时器 ";
+L["disableLogonAboveMaxBuffLevelDesc"] = "当您在 TBC 领域登录 63 级以上的角色时，在聊天中关闭计时器？";
 
-L["disableLogonAllLevelsTitle"] = "所有級別角色關閉登入計時器";
-L["disableLogonAllLevelsDesc"] = "為 TBC 領域的所有級別的角色，關閉登入計時器。";
+L["disableLogonAllLevelsTitle"] = "所有级别角色关闭登入计时器";
+L["disableLogonAllLevelsDesc"] = "为 TBC 领域的所有级别的角色，关闭登入计时器。";
 
-L["Flask of Fortification"] = "防禦精煉藥劑";
-L["Flask of Pure Death"] = "純淨死亡精煉藥劑";
-L["Flask of Relentless Assault"] = "強襲精煉藥劑";
-L["Flask of Blinding Light"] = "盲目之光精煉藥劑";
-L["Flask of Mighty Restoration"] = "法力恢復精煉藥劑";
-L["Flask of Chromatic Wonder"] = "炫彩驚奇精煉藥劑";
-L["Fortification of Shattrath"] = "撒塔斯防禦精煉藥劑";
-L["Pure Death of Shattrath"] = "撒塔斯純淨死亡精煉藥劑";
-L["Relentless Assault of Shattrath"] = "撒塔斯強襲精煉藥劑";
-L["Blinding Light of Shattrath"] = "撒塔斯盲目之光精煉藥劑";
-L["Mighty Restoration of Shattrath"] = "撒塔斯法力恢復精煉藥劑";
-L["Supreme Power of Shattrath"] = "撒塔斯炫彩驚奇精煉藥劑";
-L["Unstable Flask of the Beast"] = "野獸的不穩定精煉藥劑";
-L["Unstable Flask of the Sorcerer"] = "巫師的不穩定精煉藥劑";
-L["Unstable Flask of the Bandit"] = "強盜的不穩定精煉藥劑";
-L["Unstable Flask of the Elder"] = "長者的不穩定精煉藥劑";
-L["Unstable Flask of the Physician"] = "醫師的不穩定精煉藥劑";
-L["Unstable Flask of the Soldier"] = "士兵的不穩定精煉藥劑";
+L["Flask of Fortification"] = "强固合剂";
+L["Flask of Pure Death"] = "纯粹死亡合剂";
+L["Flask of Relentless Assault"] = "无情突袭合剂";
+L["Flask of Blinding Light"] = "盲目光芒合剂";
+L["Flask of Mighty Restoration"] = "强效回复合剂";
+L["Flask of Chromatic Wonder"] = "多彩奇迹合剂";
+L["Fortification of Shattrath"] = "沙塔斯强固合剂";
+L["Pure Death of Shattrath"] = "沙塔斯纯粹死亡合剂";
+L["Relentless Assault of Shattrath"] = "沙塔斯无情突袭合剂";
+L["Blinding Light of Shattrath"] = "沙塔斯盲目光芒合剂";
+L["Mighty Restoration of Shattrath"] = "沙塔斯强效回复合剂";
+L["Supreme Power of Shattrath"] = "沙塔斯超级能量合剂";
+L["Unstable Flask of the Beast"] = "不稳定的野兽合剂";
+L["Unstable Flask of the Sorcerer"] = "不稳定的巫术合剂";
+L["Unstable Flask of the Bandit"] = "不稳定的强盗合剂";
+L["Unstable Flask of the Elder"] = "不稳定的长者合剂";
+L["Unstable Flask of the Physician"] = "不稳定的医师合剂";
+L["Unstable Flask of the Soldier"] = "不稳定的士兵合剂";
 
-L["Chronoboon Displacer"] = "時光祝福置換器";
+L["Chronoboon Displacer"] = "时光祝福置换器";
 
-L["Silithyst"] = "水晶塵";
+L["Silithyst"] = "水晶尘";
 
 L["Gold"] = "金币";
 L["level"] = "等级";
@@ -792,39 +792,39 @@ L["none"] = "无";
 
 
 
-L["dmfDamagePercent"] = "這個新的暗夜增益是 %s%% 傷害。";
-L["dmfDamagePercentTooltip"] = "NWB檢測到這個 %s 傷害。";
+L["dmfDamagePercent"] = "这个新的暗夜增益是 %s%% 伤害。";
+L["dmfDamagePercentTooltip"] = "NWB检测到这个 %s 伤害。";
 L["guildLTitle"] = "共享公会位面"
 L["guildLDesc"] = "跟您的公会分享您在哪个位面，输入 /wb guild 指令可显示您的公会位面信息。";		
 L["terokkarTimer"] = "泰洛卡";
-L["terokkarWarning"] = "泰洛卡森林靈魂尖塔重置再 %s";
+L["terokkarWarning"] = "泰洛卡森林灵魂尖塔重置再 %s";
 
-L["Nazgrel"] = "納茲格雷爾";
-L["Hellfire Citadel is ours"] = "地獄火堡壘是我們的";
-L["The time for us to rise"] = "我們崛起的時刻到了";
-L["Force Commander Danath Trollbane"] = "Force Commander Danath Trollbane";
+L["Nazgrel"] = "纳兹格雷尔";
+L["Hellfire Citadel is ours"] = "地狱火堡垒是我们的";
+L["The time for us to rise"] = "我们崛起的时刻到了";
+L["Force Commander Danath Trollbane"] = "远征军指挥官达纳斯·托尔贝恩";
 L["The feast of corruption is no more"] = "The feast of corruption is no more";
 L["Hear me brothers"] = "Hear me brothers";
 
-L["terokkarChat10Title"] = "泰洛卡10分鐘";
-L["terokkarChat10Desc"] = "在泰洛卡靈魂尖塔還剩 10 分鐘時，在聊天視窗顯示訊息。";
+L["terokkarChat10Title"] = "泰洛卡10分钟";
+L["terokkarChat10Desc"] = "在泰洛卡灵魂尖塔还剩 10 分钟时，在聊天视窗显示讯息。";
 
-L["terokkarMiddle10Title"] = "泰洛卡10分鐘";
-L["terokkarMiddle10Desc"] = "在泰洛卡靈魂尖塔還剩 10 分鐘時，顯示一個團隊警告式樣的訊息在螢幕中間。";
+L["terokkarMiddle10Title"] = "泰洛卡10分钟";
+L["terokkarMiddle10Desc"] = "在泰洛卡灵魂尖塔还剩 10 分钟时，显示一个团队警告式样的讯息在屏幕中间。";
 
 L["showShatWorldmapMarkersTitle"] = "显示每日副本标记";
 L["showShatWorldmapMarkersDesc"] = "在世界地图显示每日副本标记。"; 
-L["disableBuffTimersMaxBuffLevelTitle"] = "64級以上關閉小地圖增益計時器";
-L["disableBuffTimersMaxBuffLevelDesc"] = "是否在64級以上角色的小地圖圖標上時隱藏世界增益計時器？你只會看到泰羅卡塔的計時器和每日任務等。";
+L["disableBuffTimersMaxBuffLevelTitle"] = "64级以上关闭小地图增益计时器";
+L["disableBuffTimersMaxBuffLevelDesc"] = "是否在64级以上角色的小地图图标上时隐藏世界增益计时器？你只会看到泰罗卡塔的计时器和每日任务等。";
 
-L["hideMinimapBuffTimersTitle"] = "關閉所有等級的小地圖增益計時器";
-L["hideMinimapBuffTimersDesc"] = "是否在所有角色的小地圖圖標上時隱藏世界增益計時器？你只會看到泰羅卡塔的計時器和每日任務等。";
+L["hideMinimapBuffTimersTitle"] = "关闭所有等级的小地图增益计时器";
+L["hideMinimapBuffTimersDesc"] = "是否在所有角色的小地图图标上时隐藏世界增益计时器？你只会看到泰罗卡塔的计时器和每日任务等。";
 
-L["guildTerok10Title"] = "公會計時器訊息"; 
-L["guildTerok10Desc"] = "當世界事件即將出現時，例如 TBC 的泰羅卡森林塔樓、巫妖王之怒的冬泉谷、大災變的托爾巴拉德等，向公會聊天發送一條訊息。";
+L["guildTerok10Title"] = "公会计时器讯息"; 
+L["guildTerok10Desc"] = "当世界事件即将出现时，例如 TBC 的泰罗卡森林塔楼、巫妖王之怒的冬泉谷、大灾变的托尔巴拉德等，向公会聊天发送一条讯息。";
 
-L["showShatWorldmapMarkersTerokTitle"] = "在薩塔斯世界地圖顯示泰洛卡計時器";
-L["showShatWorldmapMarkersTerokDesc"] = "是否在在薩塔斯世界地圖上顯示泰洛卡計時器圖標?";
+L["showShatWorldmapMarkersTerokTitle"] = "在萨塔斯世界地图显示泰洛卡计时器";
+L["showShatWorldmapMarkersTerokDesc"] = "是否在在萨塔斯世界地图上显示泰洛卡计时器图标?";
 
 
 
@@ -971,8 +971,8 @@ L["sodMiddleScreenWarningTitle"] = "显示屏幕居中警报";
 L["sodMiddleScreenWarningDesc"] = "在屏幕中间显示一个 15/30 分钟的警告，提醒您类似血月这类探索赛季活动即将开始。";
 
 L["stvBossMarkerTooltip"] = "NWB Boss标记（实验性）";
-L["Boss"] = "Boss"; 
-L["stvBossSpotted"] = "發現了 Loa 首領！請查看地圖以獲取位置。";
+L["Boss"] = "首领"; 
+L["stvBossSpotted"] = "发现了 Loa 首领！请查看地图以获取位置。";
 L["Total coins this event"] = "此活动的硬币总数"; 
 L["Last seen"] = "上次看见";
 L["World Events"] = "世界事件";
@@ -1012,3 +1012,99 @@ L["flashOnlyInCityTitle"] = "是否只在主城闪烁";
 L["flashOnlyInCityDesc"] = "只有当您在掉落 Buff 的主城时，才会进行最小化闪烁（赞达拉 BUFF 的 荆棘谷也包括在内）";
 
 L["Battle Shout"] = "战斗怒吼";												   
+L["Traces of Silithyst"] = "水晶尘迹";
+L["secondMedium"] = "秒";
+L["secondsMedium"] = "秒";
+L["minuteMedium"] = "分";
+L["minutesMedium"] = "分";
+L["hourMedium"] = "小时";
+L["hoursMedium"] = "小时";
+L["dayMedium"] = "天";
+L["daysMedium"] = "天";
+L["wintergraspTimer"] = "冬拥湖";
+L["wintergraspWarning"] = "冬拥湖将在%s后开始";
+L["Completed PvP dailies"] = "已完成PvP日常";
+L["Hellfire Towers"] = "地狱火哨塔";
+L["Terokkar Towers"] = "泰罗卡哨塔";
+L["Nagrand Halaa"] = "纳格兰哈兰";
+L["wintergraspChat10Title"] = "冬拥湖 10分钟";
+L["wintergraspChat10Desc"] = "冬拥湖灵魂塔剩余10分钟时在聊天中输出消息。";
+L["wintergraspMiddle10Title"] = "冬拥湖 10分钟";
+L["wintergraspMiddle10Desc"] = "冬拥湖灵魂塔剩余10分钟时在屏幕中央显示团队警告样式消息。";
+L["ashenvaleHordeVictoryMsg"] = "The Alliance Priestess of the Moon has been slain";
+L["ashenvaleAllianceVictoryMsg"] = "The Horde Far Seer has been slain";
+L["ashenvaleWarning"] = "灰谷PvP活动即将开始 (联盟 %s%%) (部落 %s%%).";
+L["overlayShowBlackrockTitle"] = "显示黑石活动计时器图标";
+L["overlayShowBlackrockDesc"] = "显示黑石活动计时器图标？";
+L["blueShamansTitle"] = "蓝色萨满";
+L["blueShamansDesc"] = "在经典旧世中是否将此插件中的萨满显示为蓝色？";
+L["dmfBuffDroppedNoCooldown"] = "已获得暗月马戏团Buff %s，此游戏版本没有冷却时间。";
+L["chronoboonReleasedNoCooldown"] = "您已使用时光祝福置换器释放暗月马戏团Buff，此游戏版本没有冷却时间。";
+L["skipDmfCookieTitle"] = "跳过幸运饼干";
+L["skipDmfCookieDesc"] = "启用此选项以在获得DMF Buff后跳过获取幸运饼干。";
+L["No layers found yet."] = "尚未找到任何位面。";
+L["Bi-Weekly raid reset"] = "双周团队副本重置";
+L["Min Level"] = "最低等级";
+L["Rend handed in by"] = "雷德首级交回：";
+L["ago"] = "前";
+L["Dropped"] = "已掉落";
+L["Yes"] = "是";
+L["No"] = "否";
+L["Delete buff data?"] = "删除Buff数据？";
+L["No characters with buffs found."] = "未找到拥有Buff的角色。";
+L["Unknown Layer"] = "未知位面";
+L["Active"] = "已激活";
+L["noZonesMappedYet"] = "服务器重启后尚未映射任何区域。";
+L["Rend log adjusted"] = "已按雷德日志调整";
+L["flashDisableRendTitle"] = "禁用雷德闪烁";
+L["flashDisableRendDesc"] = "覆盖设置以禁用所有与雷德相关的客户端闪烁事件。";
+L["flashDisableOnyTitle"] = "禁用奥妮克希亚闪烁";
+L["flashDisableOnyDesc"] = "覆盖设置以禁用所有与奥妮克希亚/奈法利安相关的客户端闪烁事件。";
+L["flashDisableZanTitle"] = "禁用赞达拉闪烁";
+L["flashDisableZanDesc"] = "覆盖设置以禁用所有与赞达拉相关的客户端闪烁事件。";
+L["soundsFirstYellRendTitle"] = "雷德Buff即将到来";
+L["soundsFirstYellRendDesc"] = "雷德首级上交后、Buff即将落下的几秒前播放的声音（NPC首次呐喊）。";
+L["soundsFirstYellOnyTitle"] = "奥妮克希亚/奈法利安Buff即将到来";
+L["soundsFirstYellOnyDesc"] = "奥妮克希亚/奈法利安首级上交后、Buff即将落下的几秒前播放的声音（NPC首次呐喊）。";
+L["resetFramesTitle"] = "重置窗口";
+L["resetFramesDesc"] = "点击此处将所有窗口位置重置到屏幕中央。";
+L["buffHasNoCooldown"] = "此次掉落不会触发冷却";
+L["noCooldown"] = "无冷却";
+L["showDisableLayerButtonsTitle"] = "显示禁用位面按钮";
+L["showDisableLayerButtonsDesc"] = "在计时器/位面窗口中显示禁用位面按钮。";
+L["Show Quest Handins Only"] = "仅显示任务交回";
+L["showQuestHandinsTooltip"] = "仅显示雷德任务被交回的日志条目。";
+L["Molten Core"] = "熔火之心";
+L["Onyxia's Lair"] = "奥妮克希亚的巢穴";
+L["Blackwing Lair"] = "黑翼之巢";
+L["Naxxramas"] = "纳克萨玛斯";
+L["Karazhan"] = "卡拉赞";
+L["The Shattered Halls"] = "破碎大厅";
+L["Serpentshrine Cavern"] = "毒蛇神殿";
+L["The Arcatraz"] = "禁魔监狱";
+L["Black Morass"] = "黑暗沼泽";
+L["Battle of Mount Hyjal"] = "海加尔山之战";
+L["Black Temple"] = "黑暗神殿";
+L["Hellfire Citadel"] = "地狱火堡垒";
+L["Coilfang Reservoir"] = "盘牙水库";
+L["Shadow Labyrinth"] = "暗影迷宫";
+L["Auchindoun"] = "奥金顿";
+L["Tempest Keep"] = "风暴要塞";
+L["Caverns of Time"] = "时光之穴";
+L["layersHeaderDesc"] = "位面选项";
+L["minimapLayerZoneIDTitle"] = "显示小地图ZoneID";
+L["minimapLayerZoneIDDesc"] = "在您当前位面编号旁显示当前区域的ZoneID。";
+L["minimapLayerZoneIDTooltipTitle"] = "小地图ZoneID提示";
+L["minimapLayerZoneIDTooltipDesc"] = "这将使鼠标悬停提示显示您当前区域的所有位面ZoneID，方便您与另一阵营的角色或其他原因进行比较。";
+L["Unknown"] = "未知";
+L["shortLayerPrefix"] = "L";
+L["expired"] = "已过期";
+L["for"] = "已";
+L["Crossroads"] = "十字路口";
+L["by"] = "作者";
+L["For help or suggestions"] = "获取帮助或建议";
+L["rendLogQuestInfo"] = "雷德任务交回仅可在部落方显示。";
+L["recentlyKilledMsg"] = "收到新的最近被击杀的%s NPC计时器，死于%s前";
+L["Shattrath City"] = "沙塔斯城";
+L["rendOrgRelayMsg"] = "已根据奥格瑞玛消息启动雷德十字路口计时条。";
+L["Guild versions seen since logon"] = "登录后所见到的公会版本";

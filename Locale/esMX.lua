@@ -40,23 +40,31 @@ L["Thrall"] = "Thrall";
 --Horde The Barrens Rend buff NPC.
 L["Herald of Thrall"] = "Heraldo de Thrall";
 --Horde rend buff NPC first yell string (part of his first yell msg before before buff).
-L["Rend Blackhand, has fallen"] = "¡El falso Jefe de Guerra Rend Puño Negro se ha caído!";
+-- [18:01:00] Thrall: ¡Honren a sus héroes! ¡En este día, han dado un gran golpe a uno de nuestros más odiados enemigos! ¡El falso Jefe de Guerra Rend Puño Negro ha caído!
+-- [22:10:23] Heraldo de Thrall: ¡Honren a sus héroes! ¡En este día, han dado un gran golpe a uno de nuestros más odiados enemigos! ¡El falso Jefe de Guerra Rend Puño Negro ha caído!
+L["Rend Blackhand, has fallen"] = "Rend Puño Negro ha caído";
 --Horde rend buff NPC second yell string (part of his second yell msg before before buff).
---L["Be bathed in my power"] = "";
+-- [18:01:07] Thrall: ¡Báñate en mi poder! ¡Bebe de mi fuerza! ¡Combate por la gloria de la Horda!
+-- [22:10:26] Heraldo de Thrall: ¡Báñate en el poder del Jefe de Guerra! ¡Bebe de su fuerza! ¡Combate por la gloria de la Horda!
+L["Be bathed in my power"] = "Báñate en mi poder";
 
 --Horde Onyxia buff NPC.
 L["Overlord Runthak"] = "Señor supremo Runthak";
 --Horde Onyxia buff NPC first yell string (part of his first yell msg before before buff).
-L["Onyxia, has been slain"] = "Miembros de la Horda, ciudadanos de Orgrimmar";
+-- [18:00:53] Señor supremo Runthak: Miembros de la Horda, ciudadanos de Orgrimmar, vengan y reúnanse para homenajear un hecho heroico. En el día de hoy, Bangersnmash, bajo los auspicios de nuestro glorioso Jefe de Guerra, asestó un golpe mortal al Vuelo Negro. ¡Onyxia, la madre de linaje del Vuelo, ha sido asesinada!
+L["Onyxia, has been slain"] = "Onyxia, la madre de linaje del Vuelo, ha sido asesinada";
+-- [18:01:01] Señor supremo Runthak: ¡Sean testigos del innegable poder de su Jefe de Guerra! ¡Sientan cómo los eleva el grito de llamamiento de sus cazadragones!
 --Horde Onyxia buff NPC second yell string (part of his second yell msg before before buff).
-L["Be lifted by the rallying cry"] = "Sean testigos del innegable poder de su Jefe de Guerra";
+L["Be lifted by the rallying cry"] = "Sientan cómo los eleva el grito de llamamiento";
 
 --Horde Nefarian buff NPC.
 L["High Overlord Saurfang"] = "Alto señor supremo Colmillosauro";
 --Horde Nefarian buff NPC first yell string (part of his first yell msg before before buff).
+--[18:05:43] Alto señor supremo Colmillosauro: ¡NEFARIAN HA SIDO ASESINADO! Ciudadanos de Orgrimmar, inclínense ante el poder de Mikè y sus aliados, porque ellos han asestado un gran golpe al Vuelo Negro que sacará a los Aspectos de su pesadumbre. El padre del Vuelo Negro sentirá esta derrota. ¡En este día, Alamuerte retrocede, lleno de dolor y angustia!
 L["NEFARIAN IS SLAIN"] = "¡NEFARIAN HA SIDO ASESINADO!";
 --Horde Nefarian buff NPC second yell string (part of his second yell msg before before buff).
---L["Revel in his rallying cry"] = "";
+--[18:05:51] Alto señor supremo Colmillosauro: ¡Siéntanse elevados por el logro de Mikè! ¡Deléitense en su grito de llamamiento!
+L["Revel in his rallying cry"] = "Deléitense en su grito de llamamiento";
 
 ---========---
 ---Alliance---
@@ -65,18 +73,22 @@ L["NEFARIAN IS SLAIN"] = "¡NEFARIAN HA SIDO ASESINADO!";
 --Alliance Onyxia buff NPC.
 L["Major Mattingly"] = "Mayor Mattingly";
 --Alliance Onyxia buff NPC first yell string (part of his first yell msg before before buff).
+-- [10:54:07] Mayor Mattingly: Ciudadanos y aliados de Ventormenta, en el día de hoy, hemos hecho historia. Zathion ha derrotado a quienes pretendían usurpar el gobierno del reino. Vengan y reúnanse para honrar a nuestros héroes.
 L["history has been made"] = "hemos hecho historia";
 --Alliance Onyxia buff NPC second yell string (part of his second yell msg before before buff).
---L["Onyxia, hangs from the arches"] = "";
+-- [10:54:15] Mayor Mattingly: ¡Contemplen el poder de la Alianza! La aterradora Onyxia, está colgada de los arcos. ¡Que el grito de llamamiento de los cazadores de dragones eleve sus espíritus!
+L["Onyxia, hangs from the arches"] = "Onyxia, está colgada de los arcos";
 
 
 --Alliance Nefarian buff NPC.
 L["Field Marshal Afrasiabi"] = "Alguacil de campo Afrasiabi";
 L["Field Marshal Stonebridge"] = "Mariscal de campo Petraponte";
 --Alliance Nefarian buff NPC first yell string (part of his first yell msg before before buff).
+--[13:45:40] Mariscal de campo Petraponte: ¡Ciudadanos de la Alianza, el Señor de Roca Negra está muerto! ¡Nefarian ha sido vencido gracias a la combinación del poder de Unbearibull y sus aliados!
 L["the Lord of Blackrock is slain"] = "el Señor de Roca Negra está muerto";
 --Alliance Nefarian buff NPC second yell string (part of his second yell msg before before buff).
-L["Revel in the rallying cry"] = "Reúnanse alrededor de nuestro campeón";
+--[13:45:51] Mariscal de campo Petraponte: ¡Dejen que se eleven sus espíritus! ¡Reúnanse alrededor de nuestro campeón! ¡Gocen en su gloria! ¡Deléitense con el grito de llamamiento del cazador de dragones!
+L["Revel in the rallying cry"] = "Deléitense con el grito de llamamiento";
 
 ---===========----
 ---NPC's killed---
@@ -175,10 +187,13 @@ L["Your Current World Buffs"] = "Beneficios de mundo actuales";
 L["Options"] = "Opciones";
 
 --Spirit of Zandalar buff NPC first yell string (part of his first yell msg before before buff).
+-- Booty Bay
+-- [17:55:12] Emisario Zandalar: ¡El Dios de la Sangre, el Cazador de Almas, ha sido derrotado! ¡Ya no corremos peligro!
+-- [17:55:59] Emisario Zandalar: ¡Saluden todos a Maelstrôm, asesino de Hakkar y héroe de Azeroth!
 L["Begin the ritual"] = "Comiencen el ritual"
 L["The Blood God"] = "El Dios de la Sangre"; --First Booty bay yell from Zandalarian Emissary.
 --Spirit of Zandalar buff NPC second yell string (part of his second yell msg before before buff).
---L["slayer of Hakkar"] = "slayer of Hakkar";
+L["slayer of Hakkar"] = "asesino de Hakkar";
 
 L["Spirit of Zandalar"] = "Espíritu de Zandalar";
 L["Molthor"] = "Molthor";

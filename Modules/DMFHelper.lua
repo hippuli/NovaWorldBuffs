@@ -14,7 +14,7 @@ function NWB:openDmfHelperFrame()
 	end
 end
 
-if (NWB.isClassic) then
+if (NWB.isClassic and not NWB.isForever) then
 	--DMF Helper Frame.
 	--This helps using the stuck method for DMF buff people are already using on pvp realms for when factions are griefing each other.
 	--If Blizzard is against using stuck in this way I'll be happy to remove this.
@@ -120,9 +120,10 @@ if (NWB.isClassic) then
 
 	--Start stuck button.
 	local NWBDmfFrameStartStuckButton = CreateFrame("Button", "NWBDmfFrameStartStuckButton", NWBDmfFrame, "UIPanelButtonTemplate, SecureActionButtonTemplate");
+	NWBDmfFrameStartStuckButton:RegisterForClicks("AnyUp", "AnyDown");
 	NWBDmfFrameStartStuckButton:SetAttribute("type", "macro");
 	--NWBDmfFrameStartStuckButton:SetAttribute("macrotext", "/click HelpFrameCharacterStuckStuck");
-	NWBDmfFrameStartStuckButton:SetAttribute("macrotext", "/run print(\"|cFFFFFF00Auto stuck no longer works since patch 1.15.9 sorry.\")");
+	NWBDmfFrameStartStuckButton:SetAttribute("macrotext", "/run print(\"|cFFFFFF00Auto stuck no longer works since patch 1.15.9 sorry, use the logout button instead and manually unstuck on the website.\")");
 	--NWBDmfFrameStartStuckButton:SetPoint("Bottom", 0, 10);
 	NWBDmfFrameStartStuckButton:SetPoint("BottomLeft", 3, 3);
 	NWBDmfFrameStartStuckButton:SetWidth(120);
@@ -153,6 +154,7 @@ if (NWB.isClassic) then
 
 	--Stop stuck button.
 	local NWBDmfFrameStopStuckButton = CreateFrame("Button", "NWBDmfFrameStopStuckButton", NWBDmfFrame, "UIPanelButtonTemplate, SecureActionButtonTemplate");
+	NWBDmfFrameStopStuckButton:RegisterForClicks("AnyUp", "AnyDown");
 	NWBDmfFrameStopStuckButton:SetAttribute("type", "macro");
 	NWBDmfFrameStopStuckButton:SetAttribute("macrotext", "/stopcasting");
 	NWBDmfFrameStopStuckButton:SetPoint("BottomLeft", 3, 3);
@@ -168,6 +170,7 @@ if (NWB.isClassic) then
 
 	--Start logout button.
 	local NWBDmfFrameStartLogoutButton = CreateFrame("Button", "NWBDmfFrameStartLogoutButton", NWBDmfFrame, "UIPanelButtonTemplate, SecureActionButtonTemplate");
+	NWBDmfFrameStartLogoutButton:RegisterForClicks("AnyUp", "AnyDown");
 	NWBDmfFrameStartLogoutButton:SetAttribute("type", "macro");
 	NWBDmfFrameStartLogoutButton:SetAttribute("macrotext", "/camp");
 	NWBDmfFrameStartLogoutButton:SetPoint("BottomRight", -3, 3);
@@ -200,6 +203,7 @@ if (NWB.isClassic) then
 
 	--Stop logout button.
 	local NWBDmfFrameStopLogoutButton = CreateFrame("Button", "NWBDmfFrameStopLogoutButton", NWBDmfFrame, "UIPanelButtonTemplate, SecureActionButtonTemplate");
+	NWBDmfFrameStopLogoutButton:RegisterForClicks("AnyUp", "AnyDown");
 	local dmfStopLogoutMacro = [=[
 	/run for i=1,STATICPOPUP_NUMDIALOGS do if _G["StaticPopup"..i].which=="CAMP" then _G["StaticPopup"..i.."Button1"]:Click() end end
 	]=]
@@ -499,7 +503,7 @@ if (NWB.isClassic) then
 						NWB:print("Logout started (Auto resurrection disabled).");
 					end
 				else
-					NWB:print("You must be a ghost to use this.");
+					NWB:print("You must be a ghost to use this auto res.");
 				end
 			end
 		elseif (event == "UPDATE_BINDINGS") then

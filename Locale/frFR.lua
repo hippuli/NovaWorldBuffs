@@ -37,8 +37,10 @@ L["Thrall"] = "Thrall";
 --Horde The Barrens Rend buff NPC.
 L["Herald of Thrall"] = "Héraut de Thrall";
 --Horde rend buff NPC first yell string (part of his first yell msg before before buff).
+--[18:06:17] Thrall: Honorez vos héros ! Aujourd'hui, ils ont porté un coup mortel à nos ennemis les plus détestés ! Le faux chef Rend Blackhand est tombé !
 L["Rend Blackhand, has fallen"] = "Le faux chef Rend Blackhand est tombé";
 --Horde rend buff NPC second yell string (part of his second yell msg before before buff).
+--[18:06:24] Thrall: Que ma puissance vous baigne ! Buvez à ma grandeur ! Battez-vous pour la gloire de la Horde !
 L["Be bathed in my power"] = "Que ma puissance vous baigne";
 
 --Horde Onyxia buff NPC.
@@ -51,9 +53,11 @@ L["Be lifted by the rallying cry"] = "Soyez témoins de la puissance de votre Ch
 --Horde Nefarian buff NPC.
 L["High Overlord Saurfang"] = "Haut seigneur Saurfang";
 --Horde Nefarian buff NPC first yell string (part of his first yell msg before before buff).
+--[18:06:43] Haut seigneur Saurfang: NEFARIAN A ÉTÉ TUÉ ! Peuple d'Orgrimmar, inclinez-vous devant la puissance |2 Metabrekka et de ses alliés car ils ont frappé un coup contre la meute des dragons noirs qui va sûrement sortir les Aspects de leur malaise ! Cette défaite sera sans aucun doute durement ressentie par le père des dragons noirs. En ce jours, l'Aile de mort ressent douleur et angoisse !
 L["NEFARIAN IS SLAIN"] = "NEFARIAN A ÉTÉ TUÉ";
 --Horde Nefarian buff NPC second yell string (part of his second yell msg before before buff).
---L["Revel in his rallying cry"] = "";
+--[18:06:51] Haut seigneur Saurfang: Soyez exaltés par l'exploit |2 Metabrekka ! Lancez son cri de ralliement !
+L["Revel in his rallying cry"] = "Lancez son cri de ralliement";
 
 ---========---
 ---Alliance---
@@ -71,9 +75,11 @@ L["Onyxia, hangs from the arches"] = "La terrible Onyxia est accrochée";
 L["Grand maréchal Afrasiabi"] = "Grand maréchal Afrasiabi";
 L["Field Marshal Stonebridge"] = "Grand maréchal Pont-de-Pierre";
 --Alliance Nefarian buff NPC first yell string (part of his first yell msg before before buff).
-L["the Lord of Blackrock is slain"] = "le seigneur du clan Blackrock";
+--[11:04:31] Grand maréchal Pont-de-Pierre: Citoyens de l’Alliance, le seigneur du clan Rochenoire a été tué ! Nefarian a été vaincu par la puissance conjuguée |2 Shinigami et de ses alliés !
+L["the Lord of Blackrock is slain"] = "le seigneur du clan Rochenoire";
 --Alliance Nefarian buff NPC second yell string (part of his second yell msg before before buff).
-L["Revel in the rallying cry"] = "Ralliez-vous autour de votre champion";
+--[11:04:43] Grand maréchal Pont-de-Pierre: Réjouissez-vous ! Ralliez-vous autour de votre champion, célébrez sa gloire ! Lancez le cri de ralliement du tueur de dragon !
+L["Revel in the rallying cry"] = "Lancez le cri de ralliement";
 
 ---===========----
 ---NPC's killed---
@@ -164,9 +170,11 @@ L["Your Current World Buffs"] = "Vos buffs mondiaux actuels";
 L["Options"] = "Options";
 
 --Spirit of Zandalar buff NPC first yell string (part of his first yell msg before before buff).
+--[18:00:18] Emissaire zandalarien: Le Dieu sanglant, l'Écorcheur d'âmes, a été vaincu ! Nous ne sommes plus menacés !
 L["Begin the ritual"] = "Commencez le rituel"
 L["The Blood God"] = "Le Dieu sanglant"; --First Booty bay yell from Zandalarian Emissary.
 --Spirit of Zandalar buff NPC second yell string (part of his second yell msg before before buff).
+--[18:01:05] Emissaire zandalarien: Gloire à Bishwahshe, vainqueur d’Hakkar, héros d’Azeroth !
 L["slayer of Hakkar"] = "vainqueur d’Hakkar";
 
 L["Spirit of Zandalar"] = "Esprit des Zandalar";

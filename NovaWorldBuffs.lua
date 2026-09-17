@@ -2555,6 +2555,9 @@ function NWB:setLayered()
 	if (NWB.realm == "Classic Beta PvE") then
 		NWB.isLayered = true;
 	end
+	if (NWB.isForever) then
+		NWB.isLayered = false;
+	end
 end
 
 function NWB:setLayerLimit()
